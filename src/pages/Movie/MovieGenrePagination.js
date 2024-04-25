@@ -7,22 +7,40 @@ const MovieGenrePagination = ({ getMovieList }) => {
   const { genre } = useParams();
   console.log("ggg", genre);
 
-  const pageInfo = useSelector((state) =>
-    state.movie.pageInfo ? state.movie.pageInfo : { currentPage: 1 }
-  );
+  const pageInfo = useSelector((state) => state.review.pageInfo) || {
+    currentPage: 1,
+  };
 
   const pageNumbers = [];
   for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
     pageNumbers.push(i);
   }
+
+  const activeLinkStyle = {
+    color: "rgb(255, 5, 88)",
+    fontWeight: "bold",
+    margin: "10px",
+  };
+
+  const defaultLinkStyle = {
+    color: "#ccc",
+    margin: "10px",
+    cursor: "pointer",
+  };
+
   return (
     <nav aria-label="..." style={{ display: "flex", justifyContent: "center" }}>
-      <ul className="pagination">
+      <ul
+        style={{
+          listStyle: "none",
+          display: "flex",
+          margin: "0",
+          padding: "10px",
+        }}
+      >
         {/* 이전 */}
         <li
-          className={
-            pageInfo.startPage <= 1 ? "page-item disabled" : "page-item"
-          }
+          style={{ pointerEvents: pageInfo.startPage <= 1 ? "none" : "auto" }}
         >
           <span
             className="page-link"
@@ -30,8 +48,8 @@ const MovieGenrePagination = ({ getMovieList }) => {
               getMovieList(pageInfo.startPage - pageInfo.blockPage, genre)
             }
             style={{
+              ...defaultLinkStyle,
               color: "white",
-              backgroundColor: "#333",
               borderColor: "#212529",
             }}
           >
@@ -46,20 +64,11 @@ const MovieGenrePagination = ({ getMovieList }) => {
               <li key={pnum}>
                 <span
                   onClick={() => getMovieList(pnum, genre)}
-                  className="page-link"
-                  style={{
-                    zIndex: 1,
-                    color:
-                      pageInfo.currentPage === pnum
-                        ? "rgb(255, 5, 88)"
-                        : "#ccc",
-                    fontWeight:
-                      pageInfo.currentPage === pnum ? "bold" : "normal",
-                    backgroundColor:
-                      pageInfo.currentPage === pnum ? "#000" : "#333",
-                    borderColor: "#212529",
-                    cursor: "pointer",
-                  }}
+                  style={
+                    pageInfo.currentPage === pnum
+                      ? activeLinkStyle
+                      : defaultLinkStyle
+                  }
                 >
                   {pnum}
                 </span>
@@ -68,11 +77,10 @@ const MovieGenrePagination = ({ getMovieList }) => {
           })}
         {/* 다음 */}
         <li
-          className={
-            pageInfo.endPage >= pageInfo.totalPage
-              ? "page-item disabled"
-              : "page-item"
-          }
+          style={{
+            pointerEvents:
+              pageInfo.endPage >= pageInfo.totalPage ? "none" : "auto",
+          }}
         >
           <span
             className="page-link"
@@ -80,8 +88,8 @@ const MovieGenrePagination = ({ getMovieList }) => {
               getMovieList(pageInfo.startPage + pageInfo.blockPage, genre)
             }
             style={{
+              ...defaultLinkStyle,
               color: "white",
-              backgroundColor: "#333",
               borderColor: "#212529",
             }}
           >

@@ -10,9 +10,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { reviewActions } from "../../toolkit/actions/review_action";
 import { commentActions } from "../../toolkit/actions/comment_action";
-import ReviewCommentWritePopup from "./ReviewCommentWritePopup";
+
 import ReviewUpdatePopup from "./ReviewUpdatePopup";
-import ReviewCommentUpdatePopup from "./ReviewCommentUpdatePopup";
+import ReviewCommentList from "./ReviewCommentList";
+import ReviewCommentWrite from "./ReviewCommentWrite";
 
 const ReviewDetails = () => {
   const { code } = useParams();
@@ -48,31 +49,11 @@ const ReviewDetails = () => {
     navigator(`/playground/review/1`);
   };
 
-  //comment list
-  const getCommentList = (idx) => {
-    dispatch(commentActions.getCommentList(idx));
-  };
-
-  const commentList = useSelector((state) => state.comment.commentList);
-  // console.log("detail", commentList);
-  const pageInfo = useSelector((state) => state.comment.pageInfo);
-
-  useEffect(() => {
-    getCommentList(idx);
-  }, []);
-
   //comment update
   const commentDetail = useSelector((state) => state.comment.commentDetail);
   console.log("cmtdetail>>", commentDetail);
   const { user_id } = commentDetail;
   console.log("user_id", user_id);
-
-  //comment delete
-  const commentDelete = async (commentIdx) => {
-    // e.preventDefault();
-    await dispatch(commentActions.getCommentDelete(user_id, commentIdx));
-    getCommentList(idx);
-  };
 
   //popup
   const [updatePopupOpen, setUpdatePopupOpen] = useState(false);
@@ -166,13 +147,13 @@ const ReviewDetails = () => {
                 src={commentImage}
                 alt="댓글 이미지"
               ></m.UserCommentCommentImg>
-              <m.UserCommentCommentWord onClick={openCommentPopup}>
-                댓글
-              </m.UserCommentCommentWord>
+              <m.UserCommentCommentWord>댓글</m.UserCommentCommentWord>
             </m.UserCommentComment>
           </m.ActiveArea>
 
-          {commentList.length === 0 ? (
+          <ReviewCommentWrite />
+
+          {/* {commentList.length === 0 ? (
             <m.NoCommentsBox>
               <m.CommentIcon
                 src={commentIcon}
@@ -181,51 +162,17 @@ const ReviewDetails = () => {
               <m.CommentInfo>처음으로 댓글을 남겨보세요</m.CommentInfo>
             </m.NoCommentsBox>
           ) : (
-            <m.WrapUserCommentCommentBox>
-              {commentList.map((comment) => (
-                <m.UserCommentCommentBox key={comment.idx}>
-                  <m.CommentUser to={`/mypage/${comment.user_id}`}>
-                    <m.CommentUserImage
-                      src={userImage}
-                      alt="유저 이미지"
-                    ></m.CommentUserImage>
-                  </m.CommentUser>
-                  <m.CommentUserContent>
-                    <m.CommentUserName>{comment.user_id}</m.CommentUserName>
-                    <m.CommentContent>{comment.comment}</m.CommentContent>
-                  </m.CommentUserContent>
-                  <m.UpdateBtn
-                    type="submit"
-                    value="수정"
-                    onClick={() => openCommentUpdatePopup(comment.idx)}
-                    // onClick={handleCommentUpdate}
-                  >
-                    수정
-                  </m.UpdateBtn>
-                  <m.DeleteBtn onClick={() => commentDelete(comment.idx)}>
-                    {/* <m.DeleteBtn onClick={commentDelete}> */}
-                    삭제
-                  </m.DeleteBtn>
-                </m.UserCommentCommentBox>
-              ))}
-            </m.WrapUserCommentCommentBox>
-          )}
+            <ReviewCommentList />
+          )} */}
+
+          <m.NoCommentsBox>
+            <m.CommentIcon src={commentIcon} alt="댓글 아이콘"></m.CommentIcon>
+            <m.CommentInfo>처음으로 댓글을 남겨보세요</m.CommentInfo>
+          </m.NoCommentsBox>
+
+          <ReviewCommentList />
         </m.CommentBox>
       </m.Comment>
-
-      {commentPopupOpen && (
-        <ReviewCommentWritePopup
-          popupOpen={commentPopupOpen}
-          closePopup={closeCommentPopup}
-        />
-      )}
-
-      {commentUpdatePopupOpen && (
-        <ReviewCommentUpdatePopup
-          popupOpen={commentUpdatePopupOpen}
-          closePopup={closeCommentUpdatePopup}
-        />
-      )}
     </>
   );
 };
