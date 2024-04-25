@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
+import like from "../../images/like.png";
 import commentImage from "../../images/commentImage.png";
 import * as m from "../../Styles/Review/ReviewMainStyle";
 import { useParams } from "react-router-dom";
@@ -10,55 +11,54 @@ import PageNavigation from "../PageNavigation";
 import { reviewActions } from "../../toolkit/actions/review_action";
 
 const ReviewMain = () => {
+  const dispatch = useDispatch();
+
   const [selectedButton, setSelectedButton] = useState("popular");
-  const { user_id } = useParams;
+  const { user_id } = useParams();
 
   const handleButtonClick = (buttonType) => {
     if (buttonType === "popular") {
       setSelectedButton("popular");
-      getMostlikeReviewList();
+      getMostlikeReviewList(currentPage);
     } else if (buttonType === "latest") {
       setSelectedButton("latest");
-      getNewReviewList();
+      getNewReviewList(currentPage);
     }
+  };
+
+  // 좋아요 상태 관리
+  const [liked, setLiked] = useState(false);
+
+  const handleLikeToggle = (reviewIdx) => {
+    if (liked) {
+      dispatch(reviewActions.getPushLike(user_id, reviewIdx));
+    } else {
+      dispatch(reviewActions.getPushLike(user_id, reviewIdx));
+    }
+    setLiked(!liked); // 상태를 토글
   };
 
   useEffect(() => {
     if (selectedButton === "popular") {
-      getMostlikeReviewList();
+      getMostlikeReviewList(currentPage);
     } else if (selectedButton === "latest") {
-      getNewReviewList();
+      getNewReviewList(currentPage);
     }
-  }, [selectedButton]);
-
-  // 좋아요 상태 관리
-  const [likedReviews, setLikedReviews] = useState([]);
-
-  const toggleLike = (reviewIdx) => {
-    if (likedReviews.includes(reviewIdx)) {
-      // 이미 좋아요한 상태인 경우
-      setLikedReviews(likedReviews.filter((idx) => idx !== reviewIdx));
-    } else {
-      // 좋아요하지 않은 상태인 경우
-      setLikedReviews([...likedReviews, reviewIdx]);
-    }
-  };
+  }, [selectedButton, liked]);
 
   //pagination
   const { currentPage } = useParams();
+  console.log(currentPage);
 
-  const dispatch = useDispatch();
-
-  const getMostlikeReviewList = () => {
-    dispatch(reviewActions.getMostlikeReviewList());
+  const getMostlikeReviewList = (currentPage) => {
+    dispatch(reviewActions.getMostlikeReviewList(currentPage));
   };
 
-  const getNewReviewList = () => {
-    dispatch(reviewActions.getNewReviewList());
+  const getNewReviewList = (currentPage) => {
+    dispatch(reviewActions.getNewReviewList(currentPage));
   };
 
   const reviewList = useSelector((state) => state.review.reviewList);
-  console.log(reviewList);
   const pageInfo = useSelector((state) => state.review.pageInfo);
 
   return (
@@ -111,15 +111,17 @@ const ReviewMain = () => {
                   <m.Cnt>
                     <m.LikeCnt>좋아요 {review.total_likes_cnt}</m.LikeCnt>
                     <m.UserReviewCommentCnt>
-                      댓글 userReviewCommentCnt
+                      댓글 {review.total_comment_cnt}
                     </m.UserReviewCommentCnt>
                   </m.Cnt>
 
                   <m.DividingLine></m.DividingLine>
                   <m.ActiveArea>
-                    {/* <m.LikeBtn onClick={() => toggleLike(review.idx)}> */}
-                    <m.LikeBtn>
-                      <m.LikeImg src={likeImage} alt="좋아요 이미지" />
+                    <m.LikeBtn onClick={() => handleLikeToggle(review.idx)}>
+                      <m.LikeImg
+                        src={liked ? like : likeImage}
+                        alt="좋아요 이미지"
+                      />
                     </m.LikeBtn>
                     <m.UserReviewCommentImg
                       src={commentImage}

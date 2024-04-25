@@ -50,8 +50,8 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/:genre/:currentPage" element={<MovieGenre />} />
         <Route path="/movie/:code" element={<MovieInfo />} />
-        <Route path="/movie/:code/comments" element={<MovieInfoComments />} />
-        <Route path="/boxoffice" element={<DailyBoxoffice />} />
+        <Route path="/movie/:code/review" element={<MovieInfoComments />} />
+        <Route path="/boxoffice/daily" element={<DailyBoxoffice />} />
         <Route path="/boxoffice/monthly" element={<MonthlyBoxoffice />} />
         <Route
           path="/playground/review/:currentPage"

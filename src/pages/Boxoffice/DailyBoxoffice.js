@@ -12,7 +12,7 @@ const DailyBoxoffice = () => {
     const fetchDailyBoxoffice = async () => {
       try {
         const dailyboxofficeResponse = await axios
-          .get(`/home`)
+          .get(`/main`)
           .then((response) => response.data.dailyboxoffice); // 코드로부터 영화 정보 가져오기
 
         setDailyboxofficeData(dailyboxofficeResponse); // 받아온 데이터를 상태에 저장

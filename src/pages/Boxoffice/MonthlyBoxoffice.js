@@ -12,7 +12,7 @@ const MonthlyBoxoffice = () => {
           <m.BoxofficeTitleContainer>
             <m.BoxofficeTitle>박스오피스 순위 </m.BoxofficeTitle>
             <m.BoxofficeToggleButton>
-              <m.DailyBoxofficeButton to="/boxoffice">
+              <m.DailyBoxofficeButton to="/boxoffice/daily">
                 일간
               </m.DailyBoxofficeButton>
               <m.MonthlyBoxofficeButton>

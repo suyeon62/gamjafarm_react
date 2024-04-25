@@ -18,15 +18,15 @@ const MovieInfo = () => {
   const [moviesData, setMoviesData] = useState([]);
 
   const { code } = useParams();
-  console.log("code>>>>", code);
+  // console.log("code>>>>", code);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getReviewList();
+    getMovieReviewList(code);
     const fetchMoviesData = async () => {
       try {
-        const response = await axios.get(`/home/movie/detail/${code}`);
+        const response = await axios.get(`/movie/${code}`);
         setMoviesData(response.data);
       } catch (error) {
         console.error("Error fetching movie data:", error);
@@ -36,18 +36,10 @@ const MovieInfo = () => {
     fetchMoviesData();
   }, []);
 
-  const getReviewList = () => {
-    dispatch(reviewActions.getReviewList());
+  const getMovieReviewList = (code) => {
+    dispatch(reviewActions.getMovieReviewList(code));
   };
-
-  const reviewList = useSelector((state) => state.review.reviewList);
-  console.log("reviewlist", reviewList);
-
-  //해당 영화 리뷰 가져오기
-  const selectedMovieReview = reviewList.filter(
-    (review) => review.movie_code === code
-  );
-  console.log(selectedMovieReview);
+  const movieReviewList = useSelector((state) => state.review.movieReviewList);
 
   //팝업
   const [popupOpen, setPopupOpen] = useState(false);
@@ -185,11 +177,11 @@ const MovieInfo = () => {
                     <m.UserReviewTitle>리뷰</m.UserReviewTitle>
                     <m.UserReviewCnt>userReviewCnt</m.UserReviewCnt>
                   </m.WrapUserReviewTitle>
-                  <m.MoreBtn to={`/movie/${code}/comments`}>더보기</m.MoreBtn>
+                  <m.MoreBtn to={`/movie/${code}/review`}>더보기</m.MoreBtn>
                 </m.UserReviewTitleContainer>
 
                 <m.UserReviewContentsContainer>
-                  {selectedMovieReview.slice(0, 8).map((review) => (
+                  {movieReviewList.slice(0, 8).map((review) => (
                     <m.WrapUserReviewContents key={review.idx}>
                       <m.UserReviewContentsTitleContainer>
                         <m.WrapUserReviewContentsTitle
@@ -229,15 +221,15 @@ const MovieInfo = () => {
                           ></m.LikeImg>
                           <m.LikeCnt>{review.total_likes_cnt}</m.LikeCnt>
                         </m.Like>
-                        <m.UserCommentComment>
-                          <m.UserCommentCommentImg
+                        <m.UserReviewComment>
+                          <m.UserReviewCommentImg
                             src={commentImage}
                             alt="댓글 이미지"
-                          ></m.UserCommentCommentImg>
-                          <m.UserCommentCommentCnt>
-                            userCommentCommnentCnt
-                          </m.UserCommentCommentCnt>
-                        </m.UserCommentComment>
+                          ></m.UserReviewCommentImg>
+                          <m.UserReviewCommentCnt>
+                            {review.total_comment_cnt}
+                          </m.UserReviewCommentCnt>
+                        </m.UserReviewComment>
                       </m.ActiveArea>
                     </m.WrapUserReviewContents>
                   ))}

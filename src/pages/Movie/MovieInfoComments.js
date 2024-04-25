@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import graystar from "../../images/graystar.png";
 import userImage from "../../images/userImage.png";
@@ -11,25 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const MovieInfoComments = () => {
+  const [movieReviewData, setMovieReviewData] = useState([]);
+
   const { code } = useParams();
   const dispatch = useDispatch();
 
-  const getReviewList = () => {
-    dispatch(reviewActions.getReviewList());
-  };
-
   useEffect(() => {
-    getReviewList();
+    getMovieReviewList(code);
   }, []);
 
-  const reviewList = useSelector((state) => state.review.reviewList);
-  console.log("reviewlist", reviewList);
-
-  //해당 영화 리뷰 가져오기
-  const selectedMovieReview = reviewList.filter(
-    (review) => review.movie_code === code
-  );
-  console.log(selectedMovieReview);
+  const getMovieReviewList = (code) => {
+    dispatch(reviewActions.getMovieReviewList(code));
+  };
+  const movieReviewList = useSelector((state) => state.review.movieReviewList);
 
   return (
     <>
@@ -46,10 +40,12 @@ const MovieInfoComments = () => {
           </m.WrapUserReviewTitle>
 
           <m.UserReviewContentsContainer>
-            {selectedMovieReview.map((review) => (
+            {movieReviewList.map((review) => (
               <m.WrapUserReviewContents key={review.idx}>
                 <m.UserReviewContentsTitleContainer>
-                  <m.WrapUserReviewContentsTitle to={`/mypage`}>
+                  <m.WrapUserReviewContentsTitle
+                    to={`/mypage/${review.user_id}`}
+                  >
                     <m.UserImage
                       src={userImage}
                       alt="유저 이미지"
@@ -63,7 +59,9 @@ const MovieInfoComments = () => {
                 </m.UserReviewContentsTitleContainer>
 
                 <m.UserReviewContents>
-                  <m.UserReviewContentsMain to="{`/playground/review/detail/{review.idx}`}">
+                  <m.UserReviewContentsMain
+                    to={`/playground/review/detail/${review.idx}`}
+                  >
                     {review.review}
                   </m.UserReviewContentsMain>
                 </m.UserReviewContents>
@@ -79,7 +77,7 @@ const MovieInfoComments = () => {
                       alt="댓글 이미지"
                     ></m.UserCommentCommentImg>
                     <m.UserCommentCommentCnt>
-                      userCommentCommnentCnt
+                      {review.total_comment_cnt}
                     </m.UserCommentCommentCnt>
                   </m.UserCommentComment>
                 </m.ActiveArea>

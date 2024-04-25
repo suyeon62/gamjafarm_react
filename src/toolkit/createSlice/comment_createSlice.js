@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
   commentList: [],
   pageInfo: { currentPage: 1 },
+  commentDetail: {},
 };
 
 const commentSlice = createSlice({
@@ -13,6 +14,10 @@ const commentSlice = createSlice({
       // console.log("action>>>>", action.payload);
       state.commentList = action.payload.commentResponse.commentList;
       state.pageInfo = action.payload.commentResponse.pageInfo;
+    },
+
+    getCommentDetail(state, action) {
+      state.commentDetail = action.payload.commentResponse;
     },
   },
 });

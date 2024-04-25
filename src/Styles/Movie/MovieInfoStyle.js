@@ -287,16 +287,16 @@ export const LikeImg = styled.img`
 export const LikeCnt = styled.div`
   font-size: 14px;
 `;
-export const UserCommentComment = styled.div`
+export const UserReviewComment = styled.div`
   display: flex;
   align-items: center;
 `;
-export const UserCommentCommentImg = styled.img`
+export const UserReviewCommentImg = styled.img`
   width: 18px;
   height: 18px;
   margin: 0px 3px 0px 13px;
 `;
-export const UserCommentCommentCnt = styled.div`
+export const UserReviewCommentCnt = styled.div`
   font-size: 14px;
 `;
 

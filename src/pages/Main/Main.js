@@ -26,7 +26,7 @@ const Main = () => {
   useEffect(() => {
     const fetchDailyBoxoffice = async () => {
       try {
-        const mainResponse = await axios.get("/home");
+        const mainResponse = await axios.get("/main");
         const { dailyboxoffice, domesticmovies, foreignmovies, animationList } =
           mainResponse.data;
         setDailyboxofficeData(dailyboxoffice);
@@ -35,7 +35,7 @@ const Main = () => {
         setAnimationListData(animationList);
 
         //리뷰
-        const reviewResponse = await axios.get(`/review`);
+        const reviewResponse = await axios.get(`/review/mostlike/1`);
         setReviewData(reviewResponse.data.reviewList);
 
         // const codes = combinedMoviesData.map((movie) => movie.code);
@@ -86,7 +86,7 @@ const Main = () => {
                         <m.ActiveArea>
                           <m.Like>
                             <m.LikeImg src={likeImage} alt="좋아요 이미지" />
-                            <m.LikeCnt>{review.like_Cnt}</m.LikeCnt>
+                            <m.LikeCnt>{review.total_likes_cnt}</m.LikeCnt>
                           </m.Like>
 
                           <m.UserReviewComment>
@@ -95,7 +95,7 @@ const Main = () => {
                               alt="댓글 이미지"
                             />
                             <m.UserReviewCommentCnt>
-                              {review.userReviewCommentCnt}
+                              {review.total_comment_cnt}
                             </m.UserReviewCommentCnt>
                           </m.UserReviewComment>
                         </m.ActiveArea>
@@ -111,7 +111,9 @@ const Main = () => {
           <m.Boxoffice>
             <m.BoxofficeHeader>
               <m.BoxofficeHeaderName>박스오피스 순위</m.BoxofficeHeaderName>
-              <m.BoxofficeLink to="/boxoffice">더보기 {">"}</m.BoxofficeLink>
+              <m.BoxofficeLink to="/boxoffice/daily">
+                더보기 {">"}
+              </m.BoxofficeLink>
             </m.BoxofficeHeader>
 
             <m.MovieContainer>

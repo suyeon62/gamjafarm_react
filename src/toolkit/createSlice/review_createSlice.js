@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
   reviewList: [],
   viewList: [],
+  movieReviewList: [],
   pageInfo: { currentPage: 1 },
   reviewDetail: {},
   // boardFile: null,
@@ -31,6 +32,11 @@ const reviewSlice = createSlice({
     },
     getReviewDetail(state, action) {
       state.reviewDetail = action.payload.reviewResponse;
+    },
+
+    getMovieReviewList(state, action) {
+      // console.log("action>>>>", action.payload);
+      state.movieReviewList = action.payload.reviewResponse;
     },
   },
 });

@@ -1,82 +1,80 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import * as m from "../../Styles/Review/ReviewUpdatePopupStyle";
+import * as m from "../../Styles/Review/ReviewCommentUpdatePopupStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { reviewActions } from "../../toolkit/actions/review_action";
+import { commentActions } from "../../toolkit/actions/comment_action";
 
-const ReviewUpdatePopup = (props) => {
-  const { idx } = useParams();
-
+const ReviewCommentUpdatePopup = (props) => {
+  const { commentIdx } = props;
   const dispatch = useDispatch();
   const navigator = useNavigate();
 
   const [inputs, setInputs] = useState({
     content: "",
   });
-
   const { content } = inputs;
-  console.log(">>>", content, inputs);
+  console.log(">>cmtcontent>", content, inputs);
 
-  const reviewDetail = useSelector((state) => state.review.reviewDetail);
-  console.log("detail>>", reviewDetail);
-  const { movie_code, user_id } = reviewDetail;
+  const commentDetail = useSelector((state) => state.comment.commentDetail);
+  console.log("cmtdetail>>", commentDetail);
+  const { user_id } = commentDetail;
+  console.log("user_id", user_id);
 
   useEffect(() => {
     setInputs((prev) => {
-      return { ...prev, ...reviewDetail.review };
+      return { ...prev, ...commentDetail.comment };
     });
-  }, [reviewDetail]);
+  }, [commentDetail]);
 
-  const handleValueChange = (e) => {
+  const handleCommentValueChange = (e) => {
     e.preventDefault();
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
-  const handleUpdate = async (e) => {
+  const handleCommentUpdate = async (e) => {
     e.preventDefault();
-
     const formData = {
-      idx: idx,
-      movie_code: movie_code,
+      idx: commentIdx,
       user_id: user_id,
-      review: content,
+      comment: content,
+      user_review_idx: commentDetail.user_review_idx,
     };
     // formData.append("user_id", localStorage.getItem("user_id"));
 
     console.log("content", formData); //데이터 확인용
 
-    await dispatch(reviewActions.getReviewUpdate(idx, formData));
+    await dispatch(
+      commentActions.getCommentUpdate(user_id, commentIdx, formData)
+    );
 
     setInputs({
       content: "",
     });
 
     // navigator(`/playground/review/detail/${reviewDetail.idx}`);
-    closePopup();
-    dispatch(reviewActions.getReviewDetail(idx));
+    await dispatch(commentActions.getCommentDetail(commentIdx));
   };
 
   // 팝업 닫기 함수
   const closePopup = () => {
-    // setPopupOpen(false);
     props.closePopup();
   };
+
   return (
     <>
       <m.Popup>
         {/* 팝업 닫기 버튼 */}
         <m.CloseBtn onClick={closePopup}>X 닫기</m.CloseBtn>
         {/* 팝업 내용 */}
-        <m.CommentMenu>{reviewDetail.name_kor}</m.CommentMenu>
+        <m.CommentMenu>{commentDetail.user_id}</m.CommentMenu>
 
         <m.TextContainer>
           <m.Textarea
             name="content"
-            defaultValue={reviewDetail.review}
-            onChange={handleValueChange}
+            defaultValue={commentDetail.comment}
+            onChange={handleCommentValueChange}
           ></m.Textarea>
         </m.TextContainer>
         <m.WrapSave>
@@ -84,7 +82,7 @@ const ReviewUpdatePopup = (props) => {
             style={{ opacity: content ? 1 : 0.5 }}
             type="submit"
             value="수정"
-            onClick={handleUpdate}
+            onClick={handleCommentUpdate}
           >
             수정
           </m.UpdateBtn>
@@ -94,4 +92,4 @@ const ReviewUpdatePopup = (props) => {
   );
 };
 
-export default ReviewUpdatePopup;
+export default ReviewCommentUpdatePopup;

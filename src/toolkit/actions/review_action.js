@@ -3,10 +3,10 @@ import { reviewReducers } from "../createSlice/review_createSlice";
 import { useState } from "react";
 
 //좋아요 순 리뷰 정렬
-function getMostlikeReviewList() {
+function getMostlikeReviewList(currentPage) {
   return async (dispatch) => {
     const reviewResponse = await axios
-      .get(`/review/mostlike`)
+      .get(`/review/mostlike/${currentPage}`)
       .then((response) => response.data);
     // console.log("action>>", reviewResponse);
     dispatch(reviewReducers.getMostlikeReviewList({ reviewResponse }));
@@ -14,10 +14,10 @@ function getMostlikeReviewList() {
 }
 
 //최신 순 리뷰 정렬
-function getNewReviewList() {
+function getNewReviewList(currentPage) {
   return async (dispatch) => {
     const reviewResponse = await axios
-      .get(`/review/newreview`)
+      .get(`/review/newreview/${currentPage}`)
       .then((response) => response.data);
     // console.log("action>>", reviewResponse);
     dispatch(reviewReducers.getNewReviewList({ reviewResponse }));
@@ -25,10 +25,10 @@ function getNewReviewList() {
 }
 
 //리뷰 리스트
-function getReviewList() {
+function getReviewList(currentPage) {
   return async (dispatch) => {
     const reviewResponse = await axios
-      .get(`/review`)
+      .get(`/review/list/${currentPage}`)
       .then((response) => response.data);
     // console.log("action>>", reviewResponse);
     dispatch(reviewReducers.getReviewList({ reviewResponse }));
@@ -41,7 +41,7 @@ function getReviewDetail(idx) {
     const reviewResponse = await axios
       .get(`/review/view/${idx}`)
       .then((response) => response.data);
-    console.log("view>>", reviewResponse);
+    // console.log("view>>", reviewResponse);
     dispatch(reviewReducers.getReviewDetail({ reviewResponse }));
   };
 }
@@ -74,6 +74,17 @@ function getReviewDelete(idx) {
   };
 }
 
+// 영화별 리뷰 리스트
+function getMovieReviewList(movie_code) {
+  return async (dispatch) => {
+    const reviewResponse = await axios
+      .get(`/review/${movie_code}`)
+      .then((response) => response.data);
+    console.log("action>>..", reviewResponse);
+    dispatch(reviewReducers.getMovieReviewList({ reviewResponse }));
+  };
+}
+
 export const reviewActions = {
   getMostlikeReviewList,
   getNewReviewList,
@@ -82,4 +93,5 @@ export const reviewActions = {
   getReviewWrite,
   getReviewUpdate,
   getReviewDelete,
+  getMovieReviewList,
 };

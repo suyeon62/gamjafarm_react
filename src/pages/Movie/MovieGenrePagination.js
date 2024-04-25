@@ -3,31 +3,16 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
-const MovieGenrePagination = () => {
-  const [pageData, setPageData] = useState([]);
+const MovieGenrePagination = ({ getMovieList }) => {
+  const { genre } = useParams();
+  console.log("ggg", genre);
 
-  const { genre, currentPage } = useParams();
-
-  useEffect(() => {
-    const fetchGenreData = async () => {
-      try {
-        const pageResponse = await axios.get(`/movie/${genre}/${currentPage}`);
-        setPageData(pageResponse.data.pageInfo);
-        console.log("page", pageData);
-      } catch (error) {
-        console.error("Error fetching movie data:", error);
-      }
-    };
-
-    fetchGenreData(); // 영화 정보를 가져오는 함수 호출
-  }, [genre, currentPage]);
-
-  //     const pageInfo = useSelector((state) =>
-  //     state.review.pageInfo ? state.review.pageInfo : { currentPage: 1 }
-  //   );
+  const pageInfo = useSelector((state) =>
+    state.movie.pageInfo ? state.movie.pageInfo : { currentPage: 1 }
+  );
 
   const pageNumbers = [];
-  for (let i = pageData.startPage; i <= pageData.endPage; i++) {
+  for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
     pageNumbers.push(i);
   }
   return (
@@ -36,12 +21,14 @@ const MovieGenrePagination = () => {
         {/* 이전 */}
         <li
           className={
-            pageData.startPage <= 1 ? "page-item disabled" : "page-item"
+            pageInfo.startPage <= 1 ? "page-item disabled" : "page-item"
           }
         >
           <span
             className="page-link"
-            onClick={() => setPageData(pageData.startPage - pageData.blockPage)}
+            onClick={() =>
+              getMovieList(pageInfo.startPage - pageInfo.blockPage, genre)
+            }
             style={{
               color: "white",
               backgroundColor: "#333",
@@ -58,18 +45,18 @@ const MovieGenrePagination = () => {
             return (
               <li key={pnum}>
                 <span
-                  onClick={() => setPageData(pnum)}
+                  onClick={() => getMovieList(pnum, genre)}
                   className="page-link"
                   style={{
                     zIndex: 1,
                     color:
-                      pageData.currentPage === pnum
+                      pageInfo.currentPage === pnum
                         ? "rgb(255, 5, 88)"
                         : "#ccc",
                     fontWeight:
-                      pageData.currentPage === pnum ? "bold" : "normal",
+                      pageInfo.currentPage === pnum ? "bold" : "normal",
                     backgroundColor:
-                      pageData.currentPage === pnum ? "#000" : "#333",
+                      pageInfo.currentPage === pnum ? "#000" : "#333",
                     borderColor: "#212529",
                     cursor: "pointer",
                   }}
@@ -82,14 +69,16 @@ const MovieGenrePagination = () => {
         {/* 다음 */}
         <li
           className={
-            pageData.endPage >= pageData.totalPage
+            pageInfo.endPage >= pageInfo.totalPage
               ? "page-item disabled"
               : "page-item"
           }
         >
           <span
             className="page-link"
-            onClick={() => setPageData(pageData.startPage + pageData.blockPage)}
+            onClick={() =>
+              getMovieList(pageInfo.startPage + pageInfo.blockPage, genre)
+            }
             style={{
               color: "white",
               backgroundColor: "#333",
