@@ -43,7 +43,7 @@ const Login = () => {
         return response.data.id;
       })
       .then(() => {
-        window.location.replace('/mypage');
+        window.location.replace(`/mypage/${id}`); //localstorage뺌
       })
       .catch((error) => console.log(error));
   }

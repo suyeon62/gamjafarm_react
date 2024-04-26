@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './EditInfo.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 import { useSyncExternalStore } from 'react';
 
 const EditInfo = () => {
@@ -21,11 +21,13 @@ const EditInfo = () => {
     country_code: '',
     nick_name: '',
     birth: '',
-
+    name: '',
+    caption: '',
+    mbti: '',
+    pic: null,
   });
 
-  // const [id] = users;
-  const {pw} = users;
+  const { id, email, phone, pw, country_code, nick_name, birth, name, caption, mbti, pic } = users;
 
   const showName = (name) => {
     if (name === null) {
@@ -57,28 +59,24 @@ const EditInfo = () => {
 
       console.log(data);
 
-      setUsers({ ...users, phone: data.phone, country_code: data.country_code, birth: data.birth, email: data.email, name: data.name, pw:'' });
+      setUsers((prev) => {
+        return { ...prev, ...response.data, pw: '' };
+      });
 
     } catch (error) {
       console.error('Error', error);
     }
   };
 
-  // const info = async () => {
-  //   await axios
-  //     .get(`/user/update/${localStorage.id}`)
-  //     .then((response) => {
-  //       setUsers((prev) => {
-  //         return { ...prev, ...response.data, pw: '' };
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
+  {/*파일 */ }
+  const handleFileChange = (e) => {
+    e.preventDefault();
+    setUsers((prev) => {
+      return { ...prev, [e.target.name]: e.target.files[0] };
+    });
+  };
 
-  
-  const [pwCheck, setPwCheck] = useState('');
+  // const [pwCheck, setPwCheck] = useState('');
 
   {/*비번체크 */ }
   // const passCheck = (e) => {
@@ -89,31 +87,40 @@ const EditInfo = () => {
   //   }
   // };
 
-  const submit = async (e) => {
-    e.preventDefault();
-    
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      // Authorization: localStorage.getItem('Authorization'),
+    },
+  };
 
-    const userData = {
-      phone: users.phone,
-      pw: users.pw,
-    };
+  const submit = async (e) => {
+    // e.preventDefault();
 
     if (!pw.trim()) {
       alert('비밀번호를 입력하세요.');
       return;
     }
 
+    const formData = new FormData();
+    formData.append("pic", pic);
+    formData.append("pw", pw);
+    formData.append("mbti", mbti);
+    formData.append("caption", caption);
+    formData.append("phone", phone);
+    formData.append("country_code", country_code);
+
+
     await axios
-      .put(`/user/update`, userData)
+      .put(`/user/update`, formData, config)
       .then((response) => {
         console.log(response);
-        // localStorage.setItem('id', id);
-        window.location.replace('/mypage');
+        window.location.replace(`/mypage/${localStorage.id}`);
       })
       .catch((error) => {
         console.log(error);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     info();
@@ -135,30 +142,21 @@ const EditInfo = () => {
               <input type='text' className='input_text' name='id' value={localStorage.id} readOnly />
             </div>
 
-            {/* <div className='editPw'>
-              <span>비번:</span> */}
-            {/* <input type='password' className='input_text' placeholder='pw' name='pw' /> */}
-            {/* <Link to='changepw'>
-                <button id='changePw'>changePw</button>
-              </Link>
-            </div> */}
+            <div className='editPw'>
+              <span>비번:</span>
+              <input type='password' className='input_text' placeholder='pw' name='pw' value={pw} onChange={handleValueChange} />
 
-            {/*비번*/}
-            <div className='newPw'>
-              <i class="login_icon fas fa-lock  "></i>
-              <input type='password' className='input_text' placeholder='Password' name='pw' onChange={handleValueChange} />
             </div>
 
-            {/*비번체크*/}
-            {/* <div className='checkPw'>
-              <i class="login_icon fas fa-lock  "></i>
-              <input type='password' className='input_text' placeholder='Password check' onChange={passCheck} />
-              <span>{pwCheck}</span>
-            </div> */}
+            <div className='editCheckPw'>
+              <span>비번확인:</span>
+              <input type='password' className='input_text' placeholder='pw' name='pw' />
+
+            </div>
 
             <div className='editName'>
               <span>이름:</span>
-              <input type='text' className='input_text' name='name' readOnly value={showName(users.name)} />
+              <input type='text' className='input_text' name='name' readOnly value={showName(name)} />
             </div>
 
             <div className='editNick'>
@@ -168,44 +166,44 @@ const EditInfo = () => {
 
             <div className='editEmail'>
               <span>이메일:</span>
-              <input type='text' className='input_text' name='email' value={users.email} />
+              <input type='text' className='input_text' name='email' value={email} />
             </div>
 
             <div className='editPic'>
               <span>프로필:</span>
-              <input type='file' className='input_text' />
+              <input type='file' className='input_text' name='pic' onChange={handleFileChange} />
             </div>
 
             <div className='editBirth'>
               <span>생일:</span>
-              <input type='text' className='input_text' name='birth' value={changeDate(users.birth)} readOnly />
+              <input type='text' className='input_text' name='birth' value={changeDate(birth)} readOnly />
             </div>
 
             <div className='editCountryCode'>
               <span>국가:</span>
-              <input type='text' className='input_text' name='countryCode' value={users.country_code} onChange={handleValueChange} />
+              <input type='text' className='input_text' name='countryCode' value={country_code} onChange={handleValueChange} />
             </div>
 
             <div className='editPhone'>
               <span>전화번호:</span>
-              <input type='text' className='input_text' name='phone' value={users.phone} onChange={handleValueChange} />
+              <input type='text' className='input_text' name='phone' value={phone} onChange={handleValueChange} />
             </div>
 
             <div className='editMbti'>
               <span>MBTI:</span>
-              <input type='text' className='input_text' name='mbti' />
+              <input type='text' className='input_text' name='mbti' value={mbti} onChange={handleValueChange} />
             </div>
 
             <div className='editCaption'>
               <span>Caption:</span>
-              <input type='text' className='input_text' name='caption' maxLength='200' />
+              <textarea className='input_text' name='caption' maxLength='200' value={caption} onChange={handleValueChange} />
             </div>
 
             <button id='editConfirm'>수정완료</button>
 
-            {/* <Link to='userremove'>
+            <Link to='userremove'>
               <button id='deleteAcct'>회원탈퇴</button>
-            </Link> */}
+            </Link>
 
           </div>
 

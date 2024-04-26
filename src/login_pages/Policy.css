@@ -72,7 +72,7 @@
   box-sizing: border-box;
   border-radius: 10px;
   left: 8%;
-
+  overflow: auto;
 }
 
 .policyContent{
@@ -84,6 +84,7 @@
   box-sizing: border-box;
   border-radius: 10px;
   left: 8%;
+  overflow: auto;
 }
 
 p{

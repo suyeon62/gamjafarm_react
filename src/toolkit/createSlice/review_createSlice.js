@@ -6,7 +6,7 @@ let initialState = {
   movieReviewList: [],
   pageInfo: { currentPage: 1 },
   reviewDetail: {},
-  // boardFile: null,
+
 };
 
 const reviewSlice = createSlice({

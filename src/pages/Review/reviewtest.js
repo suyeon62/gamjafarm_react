@@ -26,15 +26,6 @@ const ReviewMain = () => {
     }
   };
 
-  useEffect(() => {
-    // selectedButton 변경 시 데이터 가져오기
-    if (selectedButton === "popular") {
-      getMostlikeReviewList(currentPage);
-    } else if (selectedButton === "latest") {
-      getNewReviewList(currentPage);
-    }
-  }, [selectedButton]);
-
   // 좋아요 상태 관리
   const [liked, setLiked] = useState(false);
 
@@ -68,7 +59,6 @@ const ReviewMain = () => {
   };
 
   const reviewList = useSelector((state) => state.review.reviewList);
-  console.log("reviewList", reviewList);
   const pageInfo = useSelector((state) => state.review.pageInfo);
 
   return (

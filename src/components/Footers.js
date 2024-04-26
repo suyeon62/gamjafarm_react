@@ -6,6 +6,13 @@ import instagramIcon from "../images/instagram.png";
 import facebookIcon from "../images/facebook.png";
 import twitterIcon from "../images/twitter.png";
 
+import Chatbot from "react-chatbot-kit";
+import "../chat_search/Chatbot.css";
+// import 'react-chatbot-kit/build/main.css';
+import ChatConfig from '../chat_search/ChatConfig.js';
+import MessageParser from '../chat_search/MessageParser.js';
+import ActionProvider from '../chat_search/ActionProvider.js';
+
 const Footer = styled.div`
   display: flex;
   flex-direction: column; /* 세로로 배치 */
@@ -94,6 +101,9 @@ const SocialIcon = styled.img`
 const Footers = () => {
   return (
     <Footer>
+
+      {/* <Chatbot config={ChatConfig} messageParser={MessageParser} actionProvider={ActionProvider} /> */}
+
       <UpperFooter>
         지금까지 <Em>★userCommentCnt개의 평가가 </Em>쌓였어요.
       </UpperFooter>

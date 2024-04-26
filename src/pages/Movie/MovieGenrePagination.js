@@ -50,6 +50,7 @@ const MovieGenrePagination = ({ getMovieList }) => {
             style={{
               ...defaultLinkStyle,
               color: "white",
+              backgroundColor: "#333",
               borderColor: "#212529",
             }}
           >
@@ -90,6 +91,7 @@ const MovieGenrePagination = ({ getMovieList }) => {
             style={{
               ...defaultLinkStyle,
               color: "white",
+              backgroundColor: "#333",
               borderColor: "#212529",
             }}
           >

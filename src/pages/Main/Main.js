@@ -65,17 +65,17 @@ const Main = () => {
                 {reviewData.map((review) => (
                   <m.Box key={review.idx}>
                     <m.BoxContents>
-                      <m.ReviewBox to="/playground/review/1">
+                      <m.ReviewBox to='/playground/review/1'>
                         <m.BoxTitle>
                           <m.BoxTitleContainer>
-                            <m.UserImage src={userImage} alt="유저 이미지" />
+                            <m.UserImage src={userImage} alt='유저 이미지' />
                             <m.UserName>{review.user_id}</m.UserName>
                           </m.BoxTitleContainer>
                           <m.MovieRate>{review.userRate}</m.MovieRate>
                         </m.BoxTitle>
 
                         <m.BoxBodyContainer>
-                          <m.MoviePoster src={review.poster} alt="포스터" />
+                          <m.MoviePoster src={review.poster} alt='포스터' />
                           <m.MovieReview>
                             <m.MovieName>{review.name_kor}</m.MovieName>
                             <m.UserReview>{review.review}</m.UserReview>
@@ -92,10 +92,10 @@ const Main = () => {
                           <m.UserReviewComment>
                             <m.UserReviewCommentImg
                               src={commentImage}
-                              alt="댓글 이미지"
+                              alt='댓글 이미지'
                             />
                             <m.UserReviewCommentCnt>
-                              {review.total_comment_cnt}
+                              {review.userReviewCommentCnt}
                             </m.UserReviewCommentCnt>
                           </m.UserReviewComment>
                         </m.ActiveArea>
@@ -118,7 +118,7 @@ const Main = () => {
 
             <m.MovieContainer>
               <m.LeftBtn onClick={() => scrollLeft(movieListRef)}>
-                <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
+                <m.LeftBtnIcon src={arrowleft} alt='왼쪽 이동'></m.LeftBtnIcon>
               </m.LeftBtn>
               <m.WrapMovie ref={movieListRef}>
                 {dailyboxofficeData &&
@@ -128,7 +128,7 @@ const Main = () => {
                         <m.Ranking>{movie.ranking}</m.Ranking>
                       </m.MovieRanking>
                       <m.PosterLink to={`/movie/${movie.code}`}>
-                        <m.Poster src={movie.poster} alt="포스터"></m.Poster>
+                        <m.Poster src={movie.poster} alt='포스터'></m.Poster>
                       </m.PosterLink>
                       <m.MovieNameKor>{movie.name_kor}</m.MovieNameKor>
                       <m.MovieInfo>
@@ -147,7 +147,7 @@ const Main = () => {
               <m.RightBtn onClick={() => scrollRight(movieListRef)}>
                 <m.RightBtnIcon
                   src={arrowright}
-                  alt="오른쪽 이동"
+                  alt='오른쪽 이동'
                 ></m.RightBtnIcon>
               </m.RightBtn>
             </m.MovieContainer>
@@ -161,14 +161,14 @@ const Main = () => {
 
             <m.MovieContainer>
               <m.LeftBtn onClick={() => scrollLeft(domesticMovieListRef)}>
-                <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
+                <m.LeftBtnIcon src={arrowleft} alt='왼쪽 이동'></m.LeftBtnIcon>
               </m.LeftBtn>
               <m.WrapMovie ref={domesticMovieListRef}>
                 {domesticMoviesData &&
                   domesticMoviesData.map((domestic, index) => (
                     <m.Movie key={domestic.code}>
                       <m.PosterLink to={`/movie/${domestic.code}`}>
-                        <m.Poster src={domestic.poster} alt="포스터"></m.Poster>
+                        <m.Poster src={domestic.poster} alt='포스터'></m.Poster>
                       </m.PosterLink>
                       <m.MovieNameKor>{domestic.name_kor}</m.MovieNameKor>
                       <m.MovieInfo>
@@ -187,7 +187,7 @@ const Main = () => {
               <m.RightBtn onClick={() => scrollRight(domesticMovieListRef)}>
                 <m.RightBtnIcon
                   src={arrowright}
-                  alt="오른쪽 이동"
+                  alt='오른쪽 이동'
                 ></m.RightBtnIcon>
               </m.RightBtn>
             </m.MovieContainer>
@@ -201,14 +201,14 @@ const Main = () => {
 
             <m.MovieContainer>
               <m.LeftBtn onClick={() => scrollLeft(foreignMovieListRef)}>
-                <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
+                <m.LeftBtnIcon src={arrowleft} alt='왼쪽 이동'></m.LeftBtnIcon>
               </m.LeftBtn>
               <m.WrapMovie ref={foreignMovieListRef}>
                 {foreignMoviesData &&
                   foreignMoviesData.map((foreign, index) => (
                     <m.Movie key={foreign.code}>
                       <m.PosterLink to={`/movie/${foreign.code}`}>
-                        <m.Poster src={foreign.poster} alt="포스터"></m.Poster>
+                        <m.Poster src={foreign.poster} alt='포스터'></m.Poster>
                       </m.PosterLink>
                       <m.MovieNameKor>{foreign.name_kor}</m.MovieNameKor>
                       <m.MovieInfo>
@@ -227,7 +227,7 @@ const Main = () => {
               <m.RightBtn onClick={() => scrollRight(foreignMovieListRef)}>
                 <m.RightBtnIcon
                   src={arrowright}
-                  alt="오른쪽 이동"
+                  alt='오른쪽 이동'
                 ></m.RightBtnIcon>
               </m.RightBtn>
             </m.MovieContainer>
@@ -241,14 +241,14 @@ const Main = () => {
 
             <m.MovieContainer>
               <m.LeftBtn onClick={() => scrollLeft(aniListRef)}>
-                <m.LeftBtnIcon src={arrowleft} alt="왼쪽 이동"></m.LeftBtnIcon>
+                <m.LeftBtnIcon src={arrowleft} alt='왼쪽 이동'></m.LeftBtnIcon>
               </m.LeftBtn>
               <m.WrapMovie ref={aniListRef}>
                 {animationListData &&
                   animationListData.map((ani, index) => (
                     <m.Movie key={ani.code}>
                       <m.PosterLink to={`/movie/${ani.code}`}>
-                        <m.Poster src={ani.poster} alt="포스터"></m.Poster>
+                        <m.Poster src={ani.poster} alt='포스터'></m.Poster>
                       </m.PosterLink>
                       <m.MovieNameKor>{ani.name_kor}</m.MovieNameKor>
                       <m.MovieInfo>
@@ -264,7 +264,7 @@ const Main = () => {
               <m.RightBtn onClick={() => scrollRight(aniListRef)}>
                 <m.RightBtnIcon
                   src={arrowright}
-                  alt="오른쪽 이동"
+                  alt='오른쪽 이동'
                 ></m.RightBtnIcon>
               </m.RightBtn>
             </m.MovieContainer>

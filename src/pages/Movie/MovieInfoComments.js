@@ -14,7 +14,9 @@ const MovieInfoComments = () => {
   const [movieReviewData, setMovieReviewData] = useState([]);
 
   const { code } = useParams();
+
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     getMovieReviewList(code);
@@ -33,7 +35,7 @@ const MovieInfoComments = () => {
             <m.GobackButton to={`/movie/${code}`}>
               <m.GobackButtonImage
                 src={leftarrow}
-                alt="뒤로가기 버튼"
+                alt='뒤로가기 버튼'
               ></m.GobackButtonImage>
             </m.GobackButton>
             <m.UserReviewTitle>코멘트</m.UserReviewTitle>
@@ -68,13 +70,13 @@ const MovieInfoComments = () => {
 
                 <m.ActiveArea>
                   <m.Like>
-                    <m.LikeImg src={likeImage} alt="좋아요 이미지"></m.LikeImg>
+                    <m.LikeImg src={likeImage} alt='좋아요 이미지'></m.LikeImg>
                     <m.LikeCnt>{review.total_likes_cnt}</m.LikeCnt>
                   </m.Like>
                   <m.UserCommentComment>
                     <m.UserCommentCommentImg
                       src={commentImage}
-                      alt="댓글 이미지"
+                      alt='댓글 이미지'
                     ></m.UserCommentCommentImg>
                     <m.UserCommentCommentCnt>
                       {review.total_comment_cnt}

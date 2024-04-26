@@ -1,5 +1,5 @@
 #reviewContainer {
-  background-color: wheat;
+  /* background-color: wheat; */
   width: 440px;
   height: 450px;
   position: relative;
@@ -20,7 +20,7 @@
 
 .eachContainer {
   display: flex;
-  background-color: grey;
+  /* background-color: grey; */
   width: 390px;
   height: 120px;
   justify-content: center;
@@ -58,4 +58,19 @@
   background-color: wheat;
   width: 275px; /* 남은 공간을 채우도록 조절 */
   height: 110px;
+  padding: 10px;
+}
+
+#reviewContainer img {
+  width: 90px;
+  height: 110px;
+}
+
+#reviewContainer .pagination{
+  /* background-color: grey; */
+  position: relative;
+  width: 400px;
+  height: 30px;
+  top: 7%;
+  left: 5%;
 }

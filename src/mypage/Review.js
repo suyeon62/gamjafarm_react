@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
+import Pagination from '../Pagination/ReviewPagination';
+import { reviewActions } from '../toolkit/actions/mypageReview_action';
 import './Review.css';
 
 const Review = () => {
 
-  const [review, setReview] = useState([]);
 
-  const getinfo = async (e) => {
-    try {
-      const response = await axios
-        .get(`/review/${localStorage.id}`);
-      const data = response.data;
-      console.log(data)
+  {/**page */ }
+  const { currentPage } = useParams();
+  console.log("page:", currentPage)
+  const dispatch = useDispatch();
 
-    } catch (error) {
-      console.error('error', error);
-    }
+  const reviewList = useSelector((state) => state.myReview.reviewList);
+  const pageInfo = useSelector((state) => state.myReview.pageInfo);
+
+  console.log('pageinfo', pageInfo);
+  console.log('reviewlist:', reviewList);
+
+  const getReviewList = (currentPage) => {
+    console.log('currentPage', currentPage);
+    dispatch(reviewActions.getReviewList(currentPage));
   }
 
   useEffect(() => {
-    getinfo();
+    // getinfo();
+    getReviewList(currentPage);
   }, []);
 
   return (
@@ -33,30 +41,24 @@ const Review = () => {
         {/*스크롤 */}
         <div className='review'>
 
-          <div className='eachContainer'>
-            <div className='movie'></div>
-            <div className='reviewContent'></div>
-          </div>
+          {reviewList && reviewList.map((review) => (
+            <div className='eachContainer' key={review}>
+              <div className='movie'>
+                <img src={review.poster}></img>
 
-          <div className='eachContainer'>
-            <div className='movie'></div>
-            <div className='reviewContent'></div>
-          </div>
-
-          <div className='eachContainer'>
-            <div className='movie'></div>
-            <div className='reviewContent'></div>
-          </div>
-
-          <div className='eachContainer'>
-            <div className='movie'></div>
-            <div className='reviewContent'></div>
-          </div>
+              </div>
+              <div className='reviewContent'>
+                <p>{review.review}</p>
+              </div>
+            </div>
+          ))}
 
 
         </div>
 
-
+        <div className='pagination'>
+          {pageInfo && <Pagination getReviewList={getReviewList} />}
+        </div>
 
 
       </div>

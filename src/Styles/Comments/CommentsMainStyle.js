@@ -6,6 +6,7 @@ export const Comments = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 `;
 
 export const CommentsLayout = styled.div`
@@ -176,4 +177,9 @@ export const LikeImg = styled.img`
 export const UserCommentCommentImg = styled.img`
   width: 24px;
   margin-right: 20px;
+`;
+
+export const BlankBox = styled.div`
+  width: 100%;
+  height: 60px;
 `;

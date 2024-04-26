@@ -55,7 +55,7 @@ const MovieGenre = () => {
       </m.MovieGenreContainer>
 
       {/* 페이지 번호 */}
-      {pageData && <MovieGenrePagination getMovieList={getMovieList} />}
+      {pageData && <MovieGenrePagination getMovieList={genre} />}
     </>
   );
 };

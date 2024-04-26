@@ -85,6 +85,24 @@ function getMovieReviewList(movie_code) {
   };
 }
 
+//좋아요 중복 방지
+// function getPushLike(user_id, user_review_idx) {
+//   return async () => {
+//     await axios.post(`/review/hitlike/${user_id}/${user_review_idx}`);
+//     console.log(">>", user_id, user_review_idx);
+//   };
+// }
+
+//좋아요 -
+// function getDeleteLike(user_id, user_review_idx) {
+//   return async () => {
+//     await axios
+//       .delete(`/review/deletelike/${user_id}/${user_review_idx}`)
+//       .then((response) => response.data);
+//     console.log(">>>>", user_id, user_review_idx);
+//   };
+// }
+
 export const reviewActions = {
   getMostlikeReviewList,
   getNewReviewList,

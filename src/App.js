@@ -28,23 +28,23 @@ import MovieGenre from "./pages/Movie/MovieGenre";
 function App() {
   return (
     <div>
-      <Headers className="header"></Headers>
+      <Headers className='header'></Headers>
       <Routes>
-        <Route path="login" element={<Login />} />
-        <Route path="policy" element={<Policy />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path='login' element={<Login />} />
+        <Route path='policy' element={<Policy />} />
+        <Route path='signup' element={<Signup />} />
 
-        <Route path="mypage/:id" element={<Mypage />}>
+        <Route path='mypage/:id' element={<Mypage />} >
           {/* <Route index element={<Mypage />} /> */}
-          <Route path="calendar" element={<Calendar />} />
-          <Route path="wish" element={<Wish />} />
-          <Route path="rating" element={<Rating />} />
-          <Route path="review" element={<Review />} />
-          <Route path="setting" element={<Setting />} />
-          <Route path="logout" element={<Logout />} />
-          <Route path="setting/editinfo" element={<EditInfo />} />
-          <Route path="setting/editinfo/changepw" element={<Changepw />} />
-          <Route path="setting/editinfo/userremove" element={<UserRemove />} />
+          <Route path='calendar' element={<Calendar />} />
+          <Route path='wish/:currentPage' element={<Wish />} />
+          <Route path='rating' element={<Rating />} />
+          <Route path='review/:currentPage' element={<Review />} />
+          {/* <Route path='setting' element={<Setting />} /> */}
+          <Route path='logout' element={<Logout />} />
+          <Route path='editinfo' element={<EditInfo />} />
+          {/* <Route path='setting/editinfo/changepw' element={<Changepw />} /> */}
+          <Route path='setting/editinfo/userremove' element={<UserRemove />} />
         </Route>
 
         <Route path="/" element={<Main />} />

@@ -1,11 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import '../layout/Mypage.css';
+import axios from 'axios';
 import './Calendar.css'
 
 const Calendar = () => {
   const [currDate, setCurrDate] = useState(new Date());
   // const [selectedDate, setSelectedDate] = useState(null);
+
+  {/**주소에서 id가져오기 */}
+  const pathname = window.location.pathname;
+  const id = pathname.split('/')[2];
+  console.log('id:', id);
 
   const updateCalendar = () => {
     const currYear = currDate.getFullYear();
@@ -53,21 +59,56 @@ const Calendar = () => {
 
   };
 
-  {/*날짜 이벤트창 나오게 하기 */}
+  {/*날짜 이벤트창 나오게 하기 */ }
   const [isCalendarTop, setIsCalendarTop] = useState(true);
   const calendarContainerRef = useRef(null);
   const calendarInfoRef = useRef(null);
 
   const changePosition = () => {
-    if(isCalendarTop){
+    if (isCalendarTop) {
       calendarContainerRef.current.style.zIndex = '1';
       calendarInfoRef.current.style.zIndex = '2';
-    } else{
+    } else {
       calendarContainerRef.current.style.zIndex = '2';
       calendarInfoRef.current.style.zIndex = '1';
     }
     setIsCalendarTop(!isCalendarTop);
   }
+
+  const [poster, setPoster] = useState([]);
+  const [date, setDate] = useState([]);
+
+  {/*영화 리스트 뽑아오기 */ }
+  const getinfo = async () => {
+    try {
+      const response = await axios
+        .get(`/wish`);
+      const data = response.data;
+      console.log('data:',data);
+
+      const selectlist = data.WishList.map(item => [item.poster, item.regist_at]);
+      console.log('selectlist: ', selectlist)
+      console.log(selectlist[1][1]); //앞에는 몇번째 영화, 뒤는 poster아님 date 정하기
+
+      for (let i = 0; i < selectlist[i]; i++) {
+
+        if (selectedDate === selectlist[i][1]) {
+          const finalPoster = data.WishList.map((item) => item.poster);
+          console.log('final: ', finalPoster);
+          setPoster(finalPoster);
+        }
+        
+      }
+
+    } catch (error) {
+      console.error('error:', error);
+    }
+  }
+
+  useEffect(() => {
+    getinfo();
+  }, []);
+
 
   return (
     <>
@@ -105,10 +146,14 @@ const Calendar = () => {
 
       </div>
 
-        <div className='calendarInfo' ref={calendarInfoRef}>
-          <button id='change' onClick={changePosition} >change</button>
-          {selectedDate && <p>{selectedDate.toDateString()}</p>} {/*selectedDate값이 있으면 <p>호출됨 */}
-        </div>
+      <div className='calendarInfo' ref={calendarInfoRef}>
+        <button id='change' onClick={changePosition} >change</button>
+        {selectedDate && <p>{selectedDate.toDateString()}</p>}
+        {poster.map((poster, index) => (
+          <img key={index} src={poster} />
+        ))}
+        {/*selectedDate값이 있으면 <p>호출됨 */}
+      </div>
 
     </>
   );

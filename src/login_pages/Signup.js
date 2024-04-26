@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css'
 import axios from 'axios';
@@ -13,12 +13,15 @@ const Signup = () => {
     nick_name: '',
     pic: null,
     birth: '',
+    gender: '',
     country_code: '',
     phone: '',
+    mbti: '',
+
   });
 
   {/*name -> nick_name으로 바꾸기 */ }
-  const { id, pw, email, nick_name, pic, birth, country_code, phone } = users;
+  const { id, pw, email, nick_name, pic, birth, phone } = users;
 
   const handleValueChange = (e) => {
     setUsers((prev) => {
@@ -26,20 +29,9 @@ const Signup = () => {
     })
   }
 
-  const [genders, setGenders] = useState(
-    { gender: '' }
-  );
-
-  const { gender } = genders;
-
-  {/*gender check */ }
-  const handleGenderChange = (e) => {
-    setGenders((e.target.value));
-  };
-
+  {/*비번체크 */ }
   const [pwCheck, setPwCheck] = useState('');
 
-  {/*비번체크 */ }
   const passCheck = (e) => {
     if (pw !== e.target.value) {
       setPwCheck('비밀번호 불일치');
@@ -79,6 +71,42 @@ const Signup = () => {
     }
   };
 
+  {/*mbti, gender, country_code */ }
+  const [mbti, setMbti] = useState([]);
+  const [genderlist, setGenderList] = useState([]);
+  const [countryCodelist, setCountryCodeList] = useState([]);
+
+
+  const chooseInfo = async () => {
+    try {
+      const response = await axios
+        .get(`user/data`);
+      const data = response.data;
+      console.log(data)
+
+      const genderData = data.Gender;
+      console.log('gender:', genderData);
+      setGenderList(genderData);
+
+      const codeData = data.CountryCode;
+      console.log('country_code', codeData);
+      setCountryCodeList(codeData);
+
+      const mbtiData = data.MBTI;
+      console.log('mbti', mbtiData);
+      setMbti(mbtiData);
+
+      // for (let i = 0; i < gender.length; i++) {
+      //   let value = gender[i];
+      //   console.log(value);
+      //   setGender(value);
+      // }
+
+    } catch (error) {
+      console.error('error:', error);
+    }
+  }
+
   {/*파일 */ }
   const handleFileChange = (e) => {
     e.preventDefault();
@@ -87,7 +115,7 @@ const Signup = () => {
     });
   };
 
-  {/*form submit */}
+  {/*form submit */ }
   const onSubmit = async (e) => {
     e.preventDefault();
     await axios
@@ -100,6 +128,10 @@ const Signup = () => {
         console.log(error);
       })
   };
+
+  useEffect(() => {
+    chooseInfo();
+  }, []);
 
   return (
     <>
@@ -156,26 +188,45 @@ const Signup = () => {
               </div>
 
               {/*성별 - 1 안들어감*/}
-              {/* <div className='gender'>
+              <div className='gender'>
                 <i class="login_icon fas fa-venus-mars fa-fw"></i>
 
-                <input type='radio' id='maleRadio' name='gender' value={'male'} checked={genders === 'male'} onChange={handleGenderChange}></input>
-                <label for='maleRadio'>
-                  <div className='genderText'>Male</div>
-                </label>
+                <select name="gender" onChange={handleValueChange}>
+                  <option value="">--Please choose Gender--</option>
+                  {genderlist.map((code, idx) => (
+                    <option key={idx} value={code}>{code}</option>
+                  ))}
 
-                <input type='radio' id='femaleRadio' name='gender' value={'female'} checked={genders === 'female'} onChange={handleGenderChange}></input>
-                <label for='femaleRadio'>
-                  <div className='genderText'>Female</div>
-                </label>
+                </select>
 
-              </div> */}
+              </div>
+
 
               {/*국가번호*/}
               <div className='countryCode'>
                 <i class="login_icon fas fa-globe fa-fw"></i>
-                <input type='text' className='input_text' placeholder='Country Code' name='country_code' onChange={handleValueChange} />
+                <select name="country_code" onChange={handleValueChange}>
+                  <option value="">--Please choose Country code--</option>
+                  {countryCodelist.map((code, idx) => (
+                    <option key={idx} value={code}>{code}</option>
+                  ))}
+
+                </select>
               </div>
+
+              {/*MBTI*/}
+              <div className='mbti'>
+                <i class="login_icon fas fa-globe fa-fw"></i>
+                <select name="mbti" onChange={handleValueChange}>
+                  <option value="">--Please choose MBTI--</option>
+                  {mbti.map((code, idx) => (
+                    <option key={idx} value={code}>{code}</option>
+                  ))}
+
+                </select>
+              </div>
+
+
 
               {/*전화번호*/}
               <div className='phoneNo'>

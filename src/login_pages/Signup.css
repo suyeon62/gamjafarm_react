@@ -75,7 +75,6 @@
   height: 53px;
   display: flex;
   
-  
 }
 
 #signupContainer .login_icon{
@@ -148,15 +147,6 @@
   width: 60px;
 }
 
-#maleRadio{
-  margin-left: 10px;
-  
-}
-
-#femaleRadio{
-  margin-left: 30px;
-  
-}
 
 .genderText {
   display: inline-block;

@@ -14,10 +14,8 @@ const ReviewUpdatePopup = (props) => {
   const [inputs, setInputs] = useState({
     content: "",
   });
-
   const { content } = inputs;
   console.log(">>>", content, inputs);
-
   const reviewDetail = useSelector((state) => state.review.reviewDetail);
   console.log("detail>>", reviewDetail);
   const { movie_code, user_id } = reviewDetail;

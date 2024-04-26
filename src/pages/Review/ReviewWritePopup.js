@@ -6,7 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { reviewActions } from "../../toolkit/actions/review_action";
 
 const ReviewWritePopup = (props) => {
+  const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
+
   const { code, user_id } = useParams();
+  const { currentPage } = useParams();
   console.log("code>>>>", code, user_id);
 
   // const [popupOpen, setPopupOpen] = useState(); //팝업
@@ -18,7 +21,6 @@ const ReviewWritePopup = (props) => {
     content: "",
   });
   const { content } = inputs;
-
   const reviewDetail = useSelector((state) => state.review.reviewDetail);
 
   const handleValueChange = (e) => {
