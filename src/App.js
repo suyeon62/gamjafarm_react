@@ -22,29 +22,29 @@ import ReviewDetails from "./pages/Review/ReviewDetails";
 import MovieInfo from "./pages/Movie/MovieInfo";
 import MovieInfoComments from "./pages/Movie/MovieInfoComments";
 import DailyBoxoffice from "./pages/Boxoffice/DailyBoxoffice";
-import MonthlyBoxoffice from "./pages/Boxoffice/MonthlyBoxoffice";
+import WeeklyBoxoffice from "./pages/Boxoffice/WeeklyBoxoffice";
 import MovieGenre from "./pages/Movie/MovieGenre";
 
 function App() {
   return (
     <div>
-      <Headers className='header'></Headers>
+      <Headers className="header"></Headers>
       <Routes>
-        <Route path='login' element={<Login />} />
-        <Route path='policy' element={<Policy />} />
-        <Route path='signup' element={<Signup />} />
+        <Route path="login" element={<Login />} />
+        <Route path="policy" element={<Policy />} />
+        <Route path="signup" element={<Signup />} />
 
-        <Route path='mypage/:id' element={<Mypage />} >
+        <Route path="mypage/:id" element={<Mypage />}>
           {/* <Route index element={<Mypage />} /> */}
-          <Route path='calendar' element={<Calendar />} />
-          <Route path='wish/:currentPage' element={<Wish />} />
-          <Route path='rating' element={<Rating />} />
-          <Route path='review/:currentPage' element={<Review />} />
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="wish/:currentPage" element={<Wish />} />
+          <Route path="rating" element={<Rating />} />
+          <Route path="review/:currentPage" element={<Review />} />
           {/* <Route path='setting' element={<Setting />} /> */}
-          <Route path='logout' element={<Logout />} />
-          <Route path='editinfo' element={<EditInfo />} />
+          <Route path="logout" element={<Logout />} />
+          <Route path="editinfo" element={<EditInfo />} />
           {/* <Route path='setting/editinfo/changepw' element={<Changepw />} /> */}
-          <Route path='setting/editinfo/userremove' element={<UserRemove />} />
+          <Route path="setting/editinfo/userremove" element={<UserRemove />} />
         </Route>
 
         <Route path="/" element={<Main />} />
@@ -52,7 +52,7 @@ function App() {
         <Route path="/movie/:code" element={<MovieInfo />} />
         <Route path="/movie/:code/review" element={<MovieInfoComments />} />
         <Route path="/boxoffice/daily" element={<DailyBoxoffice />} />
-        <Route path="/boxoffice/monthly" element={<MonthlyBoxoffice />} />
+        <Route path="/boxoffice/weekly" element={<WeeklyBoxoffice />} />
         <Route
           path="/playground/review/:currentPage"
           element={<ReviewMain />}

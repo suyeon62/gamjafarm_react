@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as m from "../../Styles/Review/ReviewCommentWriteStyle";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { reviewActions } from "../../toolkit/actions/review_action";
 import { commentActions } from "../../toolkit/actions/comment_action";
 
 const ReviewCommentWrite = () => {
@@ -10,6 +11,14 @@ const ReviewCommentWrite = () => {
 
   const dispatch = useDispatch();
 
+  //review detail
+  useEffect(() => {
+    dispatch(reviewActions.getReviewDetail(idx));
+  }, []);
+
+  const reviewDetail = useSelector((state) => state.review.reviewDetail);
+
+  //comment
   const [inputs, setInputs] = useState({
     content: "",
   });
@@ -44,10 +53,10 @@ const ReviewCommentWrite = () => {
   return (
     <>
       <m.Popup>
-        <form onSubmit={onSubmit}>
+        <m.Form onSubmit={onSubmit}>
           <m.Textarea
             name="content"
-            placeholder="user_id님의 리뷰에 댓글을 남겨주세요."
+            placeholder={`${reviewDetail.user_id}님의 리뷰에 댓글을 남겨주세요.`}
             onChange={handleValueChange}
             value={content}
           ></m.Textarea>
@@ -60,7 +69,7 @@ const ReviewCommentWrite = () => {
           >
             저장
           </m.SaveButton>
-        </form>
+        </m.Form>
       </m.Popup>
     </>
   );

@@ -6,22 +6,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import { reviewActions } from "../../toolkit/actions/review_action";
 
 const ReviewWritePopup = (props) => {
-  const [moviesData, setMoviesData] = useState([]); // 영화 정보를 담을 상태
+  const [moviesData, setMoviesData] = useState([]);
 
   const { code, user_id } = useParams();
   const { currentPage } = useParams();
   console.log("code>>>>", code, user_id);
 
-  // const [popupOpen, setPopupOpen] = useState(); //팝업
-
   const dispatch = useDispatch();
   const navigator = useNavigate();
+
+  useEffect(() => {
+    const fetchMoviesData = async () => {
+      try {
+        const response = await axios.get(`/movie/${code}`);
+        setMoviesData(response.data);
+      } catch (error) {
+        console.error("Error fetching movie data:", error);
+      }
+    };
+
+    fetchMoviesData();
+  }, []);
 
   const [inputs, setInputs] = useState({
     content: "",
   });
   const { content } = inputs;
-  const reviewDetail = useSelector((state) => state.review.reviewDetail);
 
   const handleValueChange = (e) => {
     setInputs((prev) => {
@@ -60,7 +70,7 @@ const ReviewWritePopup = (props) => {
         {/* 팝업 닫기 버튼 */}
         <m.CloseBtn onClick={closePopup}>X 닫기</m.CloseBtn>
         {/* 팝업 내용 */}
-        <m.CommentMenu>{reviewDetail.name_kor}</m.CommentMenu>
+        <m.CommentMenu>{moviesData.name_kor}</m.CommentMenu>
         <form onSubmit={onSubmit}>
           <m.TextContainer>
             <m.Textarea

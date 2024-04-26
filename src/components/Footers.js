@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import grayLogo from "../images/grayLogo.png";
 import kakaotalkIcon from "../images/kakaotalk.png";
 import instagramIcon from "../images/instagram.png";
 import facebookIcon from "../images/facebook.png";
 import twitterIcon from "../images/twitter.png";
+import { reviewActions } from "../toolkit/actions/review_action";
 
 import Chatbot from "react-chatbot-kit";
 import "../chat_search/Chatbot.css";
 // import 'react-chatbot-kit/build/main.css';
-import ChatConfig from '../chat_search/ChatConfig.js';
-import MessageParser from '../chat_search/MessageParser.js';
-import ActionProvider from '../chat_search/ActionProvider.js';
+import ChatConfig from "../chat_search/ChatConfig.js";
+import MessageParser from "../chat_search/MessageParser.js";
+import ActionProvider from "../chat_search/ActionProvider.js";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Footer = styled.div`
   display: flex;
@@ -99,13 +102,26 @@ const SocialIcon = styled.img`
 `;
 
 const Footers = () => {
+  const currentPage = 1;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getReviewList(currentPage);
+  }, []);
+
+  const getReviewList = (currentPage) => {
+    dispatch(reviewActions.getReviewList(currentPage));
+  };
+
+  const reviewList = useSelector((state) => state.review.reviewList);
+  const pageInfo = useSelector((state) => state.review.pageInfo);
   return (
     <Footer>
-
       {/* <Chatbot config={ChatConfig} messageParser={MessageParser} actionProvider={ActionProvider} /> */}
 
       <UpperFooter>
-        지금까지 <Em>★userCommentCnt개의 평가가 </Em>쌓였어요.
+        지금까지 <Em>★{pageInfo.totalCount}개의 평가가 </Em>쌓였어요.
       </UpperFooter>
 
       <LowerFooter>

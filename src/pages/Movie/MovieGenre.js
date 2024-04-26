@@ -3,6 +3,8 @@ import axios from "axios";
 import * as m from "../../Styles/Movie/MovieGenreStyle";
 import { useParams } from "react-router-dom";
 import MovieGenrePagination from "./MovieGenrePagination";
+import { movieActions } from "../../toolkit/actions/movie_action";
+import { useDispatch, useSelector } from "react-redux";
 
 const MovieGenre = () => {
   const [genreData, setGenreData] = useState([]);
@@ -10,20 +12,19 @@ const MovieGenre = () => {
 
   const { genre, currentPage } = useParams();
 
-  useEffect(() => {
-    const fetchGenreData = async () => {
-      try {
-        const genreResponse = await axios.get(`/movie/${genre}/${currentPage}`);
-        const { genreList, pageInfo } = genreResponse.data;
-        setGenreData(genreList);
-        setPageData(pageInfo);
-      } catch (error) {
-        console.error("Error fetching genre data:", error);
-      }
-    };
+  const dispatch = useDispatch();
 
-    fetchGenreData(); // 영화 정보를 가져오는 함수 호출
+  useEffect(() => {
+    getMovieList(currentPage, genre);
   }, [genre, currentPage]);
+
+  const getMovieList = (currentPage, genre) => {
+    dispatch(movieActions.getMovieList(currentPage, genre));
+  };
+
+  const genreList = useSelector((state) => state.movie.genreList);
+  console.log("genreList", genreList);
+  const pageInfo = useSelector((state) => state.movie.pageInfo);
 
   return (
     <>
@@ -34,7 +35,7 @@ const MovieGenre = () => {
           </m.MovieGenreTitleContainer>
 
           <m.WrapMovie>
-            {genreData.map((genre) => (
+            {genreList.map((genre) => (
               <m.Movie key={genre.code}>
                 <m.PosterLink to={`/movie/${genre.code}`}>
                   <m.Poster src={genre.poster} alt="poster"></m.Poster>
@@ -55,7 +56,7 @@ const MovieGenre = () => {
       </m.MovieGenreContainer>
 
       {/* 페이지 번호 */}
-      {pageData && <MovieGenrePagination getMovieList={genre} />}
+      {pageInfo && <MovieGenrePagination getMovieList={getMovieList} />}
     </>
   );
 };

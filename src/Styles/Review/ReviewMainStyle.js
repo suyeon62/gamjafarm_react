@@ -108,10 +108,6 @@ export const UserName = styled.div`
   color: #ededed;
 `;
 
-export const MovieRate = styled.div`
-  color: #ededed;
-`;
-
 export const BoxBodyContainer = styled.div`
   display: flex;
   padding: 12px 0;
@@ -181,6 +177,8 @@ export const LikeImg = styled.img`
   width: 24px;
   /* background-color: ${(props) => (props.liked ? "white" : "transparent")}; */
 `;
+
+export const UserReviewCommentLink = styled(Link)``;
 
 export const UserReviewCommentImg = styled.img`
   width: 24px;

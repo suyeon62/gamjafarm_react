@@ -48,7 +48,7 @@ export const DailyBoxofficeButtonLink = styled(Link)`
   font-size: 18px;
   font-weight: 600;
 `;
-export const MonthlyBoxofficeButton = styled(Link)`
+export const WeeklyBoxofficeButton = styled(Link)`
   text-decoration: none;
   color: inherit;
   font-size: 16px;

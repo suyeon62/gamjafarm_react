@@ -5,14 +5,14 @@ import graystar from "../../images/graystar.png";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
 import commentImage from "../../images/commentImage.png";
-import arrowleft from "../../images/arrow-left.png";
-import arrowright from "../../images/arrow-right.png";
-import { scrollLeft, scrollRight } from "../../Hook/scrollFunctions";
+import reviewwrite from "../../images/reviewWrite.png";
+import addWish from "../../images/addWish.png";
 import * as m from "../../Styles/Movie/MovieInfoStyle";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { reviewActions } from "../../toolkit/actions/review_action";
 import ReviewWritePopup from "../Review/ReviewWritePopup";
+import StarRating from "../../Hook/StarRating";
 
 const MovieInfo = () => {
   const [moviesData, setMoviesData] = useState([]);
@@ -107,15 +107,35 @@ const MovieInfo = () => {
                 </m.LeftMovieContentsContainer>
                 <m.RightMovieContentsContainer>
                   <m.TopContents>
-                    <m.UserMovieRate>userMovieRate</m.UserMovieRate>
                     <m.WrapRate>
-                      <m.Rate>평점</m.Rate>
-                      <m.RateAvg>{moviesData.rate_avg}</m.RateAvg>
+                      <m.WrapUserRate>
+                        <StarRating />
+                        <m.UserStarRating>평가하기</m.UserStarRating>
+                      </m.WrapUserRate>
+                      <m.WrapRateAvg>
+                        <m.RateAvg>{moviesData.rate_avg}</m.RateAvg>
+                        <m.Rate>평균 평점</m.Rate>
+                      </m.WrapRateAvg>
                     </m.WrapRate>
-                    <m.UserMovieWish>userMovieWish</m.UserMovieWish>
-                    <m.UserComment onClick={openPopup}>
-                      userReview
-                    </m.UserComment>
+
+                    <m.UserMenu>
+                      <m.UserMovieWish>
+                        <m.UserMovieWishBtn>
+                          <m.UserMovieWishImage
+                            src={addWish}
+                          ></m.UserMovieWishImage>
+                          <m.AddWish>위시리스트</m.AddWish>
+                        </m.UserMovieWishBtn>
+                      </m.UserMovieWish>
+                      <m.UserComment>
+                        <m.UserCommentBtn onClick={openPopup}>
+                          <m.UserCommentImage
+                            src={reviewwrite}
+                          ></m.UserCommentImage>
+                          <m.UserCommentMenu>리뷰 작성</m.UserCommentMenu>
+                        </m.UserCommentBtn>
+                      </m.UserComment>
+                    </m.UserMenu>
                   </m.TopContents>
                   <m.BottomContents>
                     <m.MoviePlot>{moviesData.plot}</m.MoviePlot>

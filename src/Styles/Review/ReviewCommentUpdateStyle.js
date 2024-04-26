@@ -1,9 +1,17 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom"; // 팝업 창 스타일
-export const Popup = styled.div``;
+export const Popup = styled.div`
+  margin: 0px 10px;
+`;
+
+export const CommentUpdate = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Textarea = styled.textarea`
-  width: 80%;
+  width: 65%;
   /* min-height: 360px; */
   padding: 2px;
   margin: 1px 0;
@@ -22,6 +30,7 @@ export const Textarea = styled.textarea`
 `;
 
 export const UpdateBtn = styled.button`
+  width: 35%;
   background-color: rgb(255, 47, 110);
   height: 38px;
   color: rgb(255, 255, 255);

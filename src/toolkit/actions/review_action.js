@@ -85,6 +85,15 @@ function getMovieReviewList(movie_code) {
   };
 }
 
+//좋아요
+function getHitLike(user_id, user_review_idx) {
+  console.log("hitlike>>:", user_id, user_review_idx);
+  return async () => {
+    await axios.post(`/review/hitlike/${user_id}/${user_review_idx}`);
+    console.log("get?", user_id, user_review_idx);
+  };
+}
+
 //좋아요 중복 방지
 // function getPushLike(user_id, user_review_idx) {
 //   return async () => {
@@ -112,4 +121,5 @@ export const reviewActions = {
   getReviewUpdate,
   getReviewDelete,
   getMovieReviewList,
+  getHitLike,
 };

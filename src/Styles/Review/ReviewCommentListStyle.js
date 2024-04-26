@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const WrapUserCommentCommentBox = styled.div``;
+export const WrapUserReviewCommentBox = styled.div``;
 
-export const UserCommentCommentBox = styled.div`
+export const UserReviewCommentBox = styled.div`
   margin-top: 35px;
   display: flex;
   padding: 12px 0;
@@ -26,6 +26,8 @@ export const UserCommentCommentBox = styled.div`
     transform: translateX(-50%);
   }
 `;
+
+export const UserReviewComment = styled.div``;
 
 export const CommentUser = styled.div``;
 
@@ -70,6 +72,8 @@ export const CommentLikeIcon = styled.img`
 `;
 
 export const CommentLikeCnt = styled.div``;
+
+export const Btn = styled.div``;
 
 export const UpdateBtn = styled.button``;
 

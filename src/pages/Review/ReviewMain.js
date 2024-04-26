@@ -13,6 +13,8 @@ import { reviewActions } from "../../toolkit/actions/review_action";
 const ReviewMain = () => {
   const dispatch = useDispatch();
 
+  // const currentPage = 1;
+
   const [selectedButton, setSelectedButton] = useState("popular");
   const { user_id } = useParams();
 
@@ -36,13 +38,14 @@ const ReviewMain = () => {
   }, [selectedButton]);
 
   // 좋아요 상태 관리
-  const [liked, setLiked] = useState(false);
 
-  const handleLikeToggle = (reviewIdx) => {
+  const [liked, setLiked] = useState();
+
+  const handleLikeToggle = async (reviewIdx) => {
     if (liked) {
-      dispatch(reviewActions.getPushLike(user_id, reviewIdx));
+      dispatch(reviewActions.getHitLike(user_id, reviewIdx));
     } else {
-      dispatch(reviewActions.getPushLike(user_id, reviewIdx));
+      dispatch(reviewActions.getHitLike(user_id, reviewIdx));
     }
     setLiked(!liked); // 상태를 토글
   };
@@ -68,7 +71,6 @@ const ReviewMain = () => {
   };
 
   const reviewList = useSelector((state) => state.review.reviewList);
-  console.log("reviewList", reviewList);
   const pageInfo = useSelector((state) => state.review.pageInfo);
 
   return (
@@ -100,16 +102,15 @@ const ReviewMain = () => {
                     <m.BoxTitle to={`/mypage/${review.user_id}`}>
                       <m.UserImage
                         src={userImage}
-                        alt='유저 이미지'
+                        alt="유저 이미지"
                       ></m.UserImage>
                       <m.UserName>{review.user_id}</m.UserName>
                     </m.BoxTitle>
-                    <m.MovieRate>userRate</m.MovieRate>
                   </m.BoxTitleContainer>
 
                   <m.BoxBodyContainer>
                     <m.PosterLink to={`/movie/${review.movie_code}`}>
-                      <m.Poster src={review.poster} alt='poster'></m.Poster>
+                      <m.Poster src={review.poster} alt="poster"></m.Poster>
                     </m.PosterLink>
                     <m.MovieReview
                       to={`/playground/review/detail/${review.idx}`}
@@ -130,13 +131,17 @@ const ReviewMain = () => {
                     <m.LikeBtn onClick={() => handleLikeToggle(review.idx)}>
                       <m.LikeImg
                         src={liked ? like : likeImage}
-                        alt='좋아요 이미지'
+                        alt="좋아요 이미지"
                       />
                     </m.LikeBtn>
-                    <m.UserReviewCommentImg
-                      src={commentImage}
-                      alt='댓글 이미지'
-                    ></m.UserReviewCommentImg>
+                    <m.UserReviewCommentLink
+                      to={`/playground/review/detail/${review.idx}`}
+                    >
+                      <m.UserReviewCommentImg
+                        src={commentImage}
+                        alt="댓글 이미지"
+                      ></m.UserReviewCommentImg>
+                    </m.UserReviewCommentLink>
                   </m.ActiveArea>
                 </m.ReviewBox>
               </m.Box>

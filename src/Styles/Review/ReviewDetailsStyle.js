@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Comment = styled.div`
+export const Review = styled.div`
   background-color: #212529;
   width: 100%;
   display: flex;
@@ -9,14 +9,14 @@ export const Comment = styled.div`
   padding-bottom: 55px;
 `;
 
-export const CommentBox = styled.div`
+export const ReviewBox = styled.div`
   width: 1320px;
   margin: 18px 0 16px;
 `;
 
 export const BoxTitleContainer = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   padding-bottom: 12px;
 `;
@@ -58,67 +58,54 @@ export const MovieName = styled.div`
   color: white;
 `;
 
-export const MovieRate = styled.div`
-  display: flex;
-  align-items: center;
-  color: #ededed;
-  background-color: rgb(74, 74, 74);
-  border: solid 1px rgb(234, 234, 234);
-  border-radius: 13px;
-  padding: 0 8px;
-  margin-top: 5px;
-`;
-
-export const RateImage = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
-export const UserRate = styled.div`
-  font-size: 13px;
-  font-weight: 400;
-  margin-left: 4px;
-`;
-
 export const RightsideContents = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const UpdateBtn = styled.button``;
-
-export const DeleteBtn = styled.button``;
 export const PosterLink = styled(Link)``;
 
 export const Poster = styled.img`
   width: 70px;
   height: 104px;
-  margin-right: 8px;
+  /* margin-right: 8px; */
 `;
 
-export const UserComment = styled.div`
+export const BoxContents = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+export const UserReview = styled.div`
   font-weight: 400;
   font-size: 15px;
   margin-bottom: 22px;
   color: #ededed;
 `;
 
-export const Cnt = styled.div`
+export const Btn = styled.div`
   display: flex;
-  align-items: center;
-  height: 40px;
-  margin-top: 32px;
-  color: #ededed;
+  flex-direction: column;
 `;
 
-export const LikeCnt = styled.div`
-  font-size: 12px;
-  margin-right: 18px;
+export const UpdateBtn = styled.button`
+  border: 1px solid;
+  border-radius: 10px;
+  background: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px 5px;
+  margin-bottom: 5px;
 `;
 
-export const UserCommentCommentCnt = styled.div`
-  font-size: 12px;
-  margin-right: 18px;
+export const DeleteBtn = styled.button`
+  border: 1px solid;
+  border-radius: 10px;
+  background: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px 5px;
 `;
 
 export const ActiveArea = styled.div`
@@ -128,6 +115,7 @@ export const ActiveArea = styled.div`
   height: 43px;
   border-top: solid 1px rgb(240, 240, 240);
   border-bottom: solid 1px rgb(240, 240, 240);
+  margin-bottom: 20px;
 `;
 
 export const Like = styled.div`
@@ -168,7 +156,7 @@ export const LikeWord = styled.div`
   font-weight: 400;
 `;
 
-export const UserCommentComment = styled.div`
+export const UserReviewComment = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,12 +183,12 @@ export const UserCommentComment = styled.div`
   }
 `;
 
-export const UserCommentCommentImg = styled.img`
+export const UserReviewCommentImg = styled.img`
   width: 20px;
   margin-right: 5px;
 `;
 
-export const UserCommentCommentWord = styled.div`
+export const UserReviewCommentWord = styled.div`
   color: #ededed;
   font-size: 15px;
   font-weight: 400;
@@ -225,72 +213,3 @@ export const CommentInfo = styled.div`
   font-weight: 400;
   margin-top: 12px;
 `;
-export const WrapUserCommentCommentBox = styled.div``;
-
-export const UserCommentCommentBox = styled.div`
-  margin-top: 35px;
-  display: flex;
-  padding: 12px 0;
-  position: relative;
-  /* 
-  
-  flex-direction: column;
-  align-items: center; */
-
-  &::after {
-    /* 가상 요소의 스타일 */
-    content: "";
-    display: block;
-    width: 1320px;
-    height: 1px;
-    background-color: rgb(240, 240, 240);
-    position: absolute;
-    left: 50%;
-    bottom: -10px; /* 하단에 위치하도록 설정 */
-    transform: translateX(-50%);
-  }
-`;
-
-export const CommentUser = styled.div``;
-
-export const CommentUserImage = styled.img`
-  border: 1.5 solid #ededed;
-  border-radius: 50%;
-  background-color: #b9babe;
-  width: 32px;
-  height: 32px;
-`;
-export const CommentUserContent = styled.div`
-  margin-left: 8px;
-`;
-export const CommentUserName = styled.div`
-  font-size: 15px;
-  font-weight: 500;
-  color: white;
-`;
-export const CommentContent = styled.div`
-  font-size: 15px;
-  font-weight: 400;
-  margin: 2px 0 9px;
-  color: #ededed;
-`;
-export const CommentLike = styled.div`
-  display: flex;
-  font-size: 14px;
-  font-weight: 400;
-  color: rgb(126, 126, 126);
-`;
-
-export const CommentLikeWord = styled.div`
-  font-size: 14px;
-  margin-right: 12px;
-`;
-
-export const CommentLikeIcon = styled.img`
-  width: 14px;
-  height: 14px;
-  margin-top: 2px;
-  margin-right: 5px;
-`;
-
-export const CommentLikeCnt = styled.div``;

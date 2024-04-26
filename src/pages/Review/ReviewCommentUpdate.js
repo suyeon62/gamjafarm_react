@@ -58,24 +58,29 @@ const ReviewCommentUpdate = (commentIdx) => {
 
     // navigator(`/playground/review/detail/${reviewDetail.idx}`);
     await dispatch(commentActions.getCommentDetail(commentIdx.idx));
+    // await dispatch(commentActions.getCommentList(commentIdx.idx));
+    // navigator(`/playground/review/detail/${commentIdx.user_review_idx}`);
+    window.location.reload();
   };
   return (
     <>
       <m.Popup>
-        <m.Textarea
-          name="content"
-          defaultValue={commentIdx.comment}
-          onChange={handleCommentValueChange}
-        ></m.Textarea>
+        <m.CommentUpdate>
+          <m.Textarea
+            name="content"
+            defaultValue={commentIdx.comment}
+            onChange={handleCommentValueChange}
+          ></m.Textarea>
 
-        <m.UpdateBtn
-          style={{ opacity: content ? 1 : 0.5 }}
-          type="submit"
-          value="수정"
-          onClick={handleCommentUpdate}
-        >
-          수정
-        </m.UpdateBtn>
+          <m.UpdateBtn
+            style={{ opacity: content ? 1 : 0.5 }}
+            type="submit"
+            value="수정"
+            onClick={handleCommentUpdate}
+          >
+            수정
+          </m.UpdateBtn>
+        </m.CommentUpdate>
       </m.Popup>
     </>
   );

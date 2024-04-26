@@ -6,7 +6,6 @@ let initialState = {
   movieReviewList: [],
   pageInfo: { currentPage: 1 },
   reviewDetail: {},
-
 };
 
 const reviewSlice = createSlice({

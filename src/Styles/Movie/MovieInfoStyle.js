@@ -113,7 +113,7 @@ export const MovieContents = styled.div`
 `;
 
 export const MovieContentsContainer = styled.div`
-  background-color: #7a7a7a77;
+  background-color: #00000015;
   display: flex;
   padding: 30px 0 60px;
 `;
@@ -135,15 +135,69 @@ export const TopContents = styled.div`
   align-items: center;
   border-bottom: 1px solid white;
 `;
-export const UserMovieRate = styled.div``;
 export const WrapRate = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const WrapUserRate = styled.div`
   text-align: center;
 `;
-export const Rate = styled.div``;
-export const RateAvg = styled.div``;
+export const UserStarRating = styled.div`
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
+export const WrapRateAvg = styled.div`
+  text-align: center;
+  margin-left: 50px;
+`;
+
+export const RateAvg = styled.div`
+  font-size: 32px;
+`;
+export const Rate = styled.div`
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
+export const UserMenu = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`;
 export const UserMovieWish = styled.div``;
-export const UserComment = styled.button`
+export const UserMovieWishBtn = styled.button`
+  border: none;
+  background: none;
+  color: inherit;
   cursor: pointer;
+`;
+export const UserMovieWishImage = styled.img`
+  height: 28px;
+`;
+export const AddWish = styled.div`
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
+export const UserComment = styled.div`
+  margin-left: 50px;
+  display: flex;
+  align-items: center;
+`;
+export const UserCommentBtn = styled.button`
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+`;
+export const UserCommentImage = styled.img`
+  height: 28px;
+`;
+export const UserCommentMenu = styled.div`
+  font-size: 12px;
+  margin-top: 5px;
 `;
 export const BottomContents = styled.div``;
 export const MoviePlot = styled.div`

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const MonthlyBoxofficeContainer = styled.div`
+export const WeeklyBoxofficeContainer = styled.div`
   width: 100%;
   background-color: #212529;
   color: #ededed;
   display: flex;
   justify-content: center;
 `;
-export const WrapMonthlyBoxoffice = styled.div`
+export const WrapWeeklyBoxoffice = styled.div`
   width: 1320px;
   padding: 22px 0;
 `;
@@ -38,54 +38,54 @@ export const DailyBoxofficeButton = styled(Link)`
   margin-right: 15px;
 `;
 
-export const MonthlyBoxofficeButton = styled.div`
+export const WeeklyBoxofficeButton = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export const MonthlyBoxofficeButtonIcon = styled.img`
+export const WeeklyBoxofficeButtonIcon = styled.img`
   width: 20px;
   height: 20px;
   margin-right: 5px;
 `;
 
-export const MonthlyBoxofficeButtonLink = styled(Link)`
+export const WeeklyBoxofficeButtonLink = styled(Link)`
   text-decoration: none;
   color: rgb(255, 47, 110);
   font-size: 18px;
   font-weight: 600;
 `;
 
-export const MonthlyBoxofficeDate = styled.div`
-  display: flex;
-  gap: 5px;
-  align-items: center; /* 수직 중앙 정렬 */
-`;
-export const PrevButton = styled.button`
-  border: none; /* 테두리 없음 */
-  background-color: transparent; /* 배경색 투명 */
-  display: flex;
-  align-items: center; /* 수직 중앙 정렬 */
-  cursor: pointer;
-`;
-export const PrevButtonIcon = styled.img`
-  width: 18px;
-  height: 18px;
-`;
-export const BoxAt = styled.div`
-  font-size: 13px;
-`;
-export const NextButton = styled.button`
-  border: none; /* 테두리 없음 */
-  background-color: transparent; /* 배경색 투명 */
-  display: flex;
-  align-items: center; /* 수직 중앙 정렬 */
-  cursor: pointer;
-`;
-export const NextButtonIcon = styled.img`
-  width: 18px;
-  height: 18px;
-`;
+// export const WeeklyBoxofficeDate = styled.div`
+//   display: flex;
+//   gap: 5px;
+//   align-items: center; /* 수직 중앙 정렬 */
+// `;
+// export const PrevButton = styled.button`
+//   border: none; /* 테두리 없음 */
+//   background-color: transparent; /* 배경색 투명 */
+//   display: flex;
+//   align-items: center; /* 수직 중앙 정렬 */
+//   cursor: pointer;
+// `;
+// export const PrevButtonIcon = styled.img`
+//   width: 18px;
+//   height: 18px;
+// `;
+// export const BoxAt = styled.div`
+//   font-size: 13px;
+// `;
+// export const NextButton = styled.button`
+//   border: none; /* 테두리 없음 */
+//   background-color: transparent; /* 배경색 투명 */
+//   display: flex;
+//   align-items: center; /* 수직 중앙 정렬 */
+//   cursor: pointer;
+// `;
+// export const NextButtonIcon = styled.img`
+//   width: 18px;
+//   height: 18px;
+// `;
 
 export const WrapMovie = styled.ul`
   padding: 0;

@@ -3,49 +3,51 @@ import axios from "axios";
 import prevButton from "../../images/arrow-left.png";
 import nextButton from "../../images/arrow-right.png";
 import checkedButton from "../../images/checked.png";
-import * as m from "../../Styles/Boxoffice/DailyBoxofficeStyle";
+import * as m from "../../Styles/Boxoffice/WeeklyBoxofficeStyle";
 
-const DailyBoxoffice = () => {
-  const [dailyboxofficeData, setDailyboxofficeData] = useState([]);
+const WeeklyBoxoffice = () => {
+  const [weeklyboxofficeData, setWeeklyboxofficeData] = useState([]);
 
   useEffect(() => {
-    const fetchDailyBoxoffice = async () => {
+    const fetchWeeklyBoxoffice = async () => {
       try {
-        const dailyboxofficeResponse = await axios
+        const weeklyboxofficeResponse = await axios
           .get(`/main`)
-          .then((response) => response.data.dailyboxoffice); // 코드로부터 영화 정보 가져오기
+          .then((response) => response.data.weekboxoffice); // 코드로부터 영화 정보 가져오기
 
-        setDailyboxofficeData(dailyboxofficeResponse); // 받아온 데이터를 상태에 저장
+        setWeeklyboxofficeData(weeklyboxofficeResponse); // 받아온 데이터를 상태에 저장
       } catch (error) {
         console.error("Error fetching movie data:", error);
       }
     };
 
-    fetchDailyBoxoffice(); // 영화 정보를 가져오는 함수 호출
+    fetchWeeklyBoxoffice(); // 영화 정보를 가져오는 함수 호출
   }, []);
+
+  console.log(weeklyboxofficeData);
   return (
     <>
-      <m.DailyBoxofficeContainer>
-        <m.WrapDailyBoxoffice>
+      <m.WeeklyBoxofficeContainer>
+        <m.WrapWeeklyBoxoffice>
           <m.BoxofficeTitleContainer>
             <m.BoxofficeTitle>박스오피스 순위 </m.BoxofficeTitle>
           </m.BoxofficeTitleContainer>
 
           <m.BoxofficeToggleButton>
-            <m.DailyBoxofficeButton>
-              <m.DailyBoxofficeButtonIcon
+            <m.DailyBoxofficeButton to={`/boxoffice/daily`}>
+              일간
+            </m.DailyBoxofficeButton>
+            <m.WeeklyBoxofficeButton>
+              <m.WeeklyBoxofficeButtonIcon
                 src={checkedButton}
                 alt="체크 버튼"
-              ></m.DailyBoxofficeButtonIcon>
-              <m.DailyBoxofficeButtonLink to={`/boxoffice/daily`}>
-                일간
-              </m.DailyBoxofficeButtonLink>
-            </m.DailyBoxofficeButton>
-            <m.WeeklyBoxofficeButton to={`/boxoffice/weekly`}>
-              주간
+              ></m.WeeklyBoxofficeButtonIcon>
+              <m.WeeklyBoxofficeButtonLink to={`/boxoffice/weekly`}>
+                주간
+              </m.WeeklyBoxofficeButtonLink>
             </m.WeeklyBoxofficeButton>
           </m.BoxofficeToggleButton>
-          {/* <m.DailyBoxofficeDate>
+          {/* <m.WeeklyBoxofficeDate>
             <m.PrevButton>
               <m.PrevButtonIcon
                 to
@@ -53,7 +55,7 @@ const DailyBoxoffice = () => {
                 alt="이전 버튼"
               ></m.PrevButtonIcon>
             </m.PrevButton>
-            <m.BoxAt>boxAt&nbsp;기준</m.BoxAt>
+            <m.BoxAt>boxWeek&nbsp;기준</m.BoxAt>
             <m.NextButton>
               <m.NextButtonIcon
                 to
@@ -61,11 +63,11 @@ const DailyBoxoffice = () => {
                 alt="다음 버튼"
               ></m.NextButtonIcon>
             </m.NextButton>
-          </m.DailyBoxofficeDate> */}
+          </m.WeeklyBoxofficeDate> */}
 
           <m.WrapMovie>
-            {dailyboxofficeData &&
-              dailyboxofficeData.map((movie, index) => (
+            {weeklyboxofficeData &&
+              weeklyboxofficeData.map((movie, index) => (
                 <m.Movie key={movie.code}>
                   <m.MovieRanking>
                     <m.Ranking>{movie.ranking}</m.Ranking>
@@ -85,10 +87,10 @@ const DailyBoxoffice = () => {
                 </m.Movie>
               ))}
           </m.WrapMovie>
-        </m.WrapDailyBoxoffice>
-      </m.DailyBoxofficeContainer>
+        </m.WrapWeeklyBoxoffice>
+      </m.WeeklyBoxofficeContainer>
     </>
   );
 };
 
-export default DailyBoxoffice;
+export default WeeklyBoxoffice;

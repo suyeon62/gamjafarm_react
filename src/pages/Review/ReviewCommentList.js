@@ -36,9 +36,9 @@ const ReviewCommentList = () => {
 
   return (
     <>
-      <m.WrapUserCommentCommentBox>
+      <m.WrapUserReviewCommentBox>
         {commentList.map((comment) => (
-          <m.UserCommentCommentBox key={comment.idx}>
+          <m.UserReviewCommentBox key={comment.idx}>
             <m.CommentUser to={`/mypage/${comment.user_id}`}>
               <m.CommentUserImage
                 src={userImage}
@@ -60,22 +60,24 @@ const ReviewCommentList = () => {
                 <m.CommentContent>{comment.comment}</m.CommentContent>
               </m.CommentUserContent>
             )}
-            <m.UpdateBtn
-              type="submit"
-              value="수정"
-              onClick={() => setEditingCommentIdx(comment.idx)}
-            >
-              수정
-            </m.UpdateBtn>
-            <m.DeleteBtn
-              onClick={() => commentDelete(comment.user_id, comment.idx)}
-            >
-              {/* <m.DeleteBtn onClick={commentDelete}> */}
-              삭제
-            </m.DeleteBtn>
-          </m.UserCommentCommentBox>
+            <m.Btn>
+              <m.UpdateBtn
+                type="submit"
+                value="수정"
+                onClick={() => setEditingCommentIdx(comment.idx)}
+              >
+                수정
+              </m.UpdateBtn>
+              <m.DeleteBtn
+                onClick={() => commentDelete(comment.user_id, comment.idx)}
+              >
+                {/* <m.DeleteBtn onClick={commentDelete}> */}
+                삭제
+              </m.DeleteBtn>
+            </m.Btn>
+          </m.UserReviewCommentBox>
         ))}
-      </m.WrapUserCommentCommentBox>
+      </m.WrapUserReviewCommentBox>
     </>
   );
 };

@@ -39,16 +39,23 @@ export const ReviewLink = styled(Link)`
 `;
 
 export const BoxContainer = styled.div`
-  overflow: scroll;
+  /* overflow: scroll;
   display: block;
-  scrollbar-width: none;
+  scrollbar-width: none; */
+  position: relative;
 `;
 
 export const BoxList = styled.ul`
-  overflow: visible;
-  position: relative;
+  /* overflow: visible; */
+  overflow-x: scroll;
+  -webkit-scrollbar: no-button;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scroll-behavior: smooth;
+  /* position: relative; */
   color: rgb(0, 0, 0);
-  column-gap: 16px;
+  column-gap: 12px;
   display: flex;
   flex-wrap: nowrap;
   list-style-type: none;
@@ -201,7 +208,7 @@ export const MovieContainer = styled.div`
 export const LeftBtn = styled.div`
   position: absolute;
   left: -15px;
-  top: 50%;
+  top: 40%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -230,7 +237,7 @@ export const WrapMovie = styled.ul`
 export const RightBtn = styled.div`
   position: absolute;
   right: -15px;
-  top: 50%;
+  top: 40%;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -7,7 +7,7 @@ const MovieGenrePagination = ({ getMovieList }) => {
   const { genre } = useParams();
   console.log("ggg", genre);
 
-  const pageInfo = useSelector((state) => state.review.pageInfo) || {
+  const pageInfo = useSelector((state) => state.movie.pageInfo) || {
     currentPage: 1,
   };
 

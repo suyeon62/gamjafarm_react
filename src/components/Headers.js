@@ -219,8 +219,8 @@ const Headers = () => {
             <MenuBar>
               <Dropbtn>박스오피스</Dropbtn>
               <DropdownBox>
-                <ColumnLink to={`/boxoffice`}>일간</ColumnLink>
-                <ColumnLink to={`/boxoffice/monthly`}>주간</ColumnLink>
+                <ColumnLink to={`/boxoffice/daily`}>일간</ColumnLink>
+                <ColumnLink to={`/boxoffice/weekly`}>주간</ColumnLink>
               </DropdownBox>
             </MenuBar>
 
@@ -230,8 +230,8 @@ const Headers = () => {
                 <ColumnLink to={`/playground/review/1`}>
                   지금 뜨는 리뷰
                 </ColumnLink>
-                <ColumnLink>공지사항</ColumnLink>
-                <ColumnLink>이벤트</ColumnLink>
+                {/* <ColumnLink>공지사항</ColumnLink>
+                <ColumnLink>이벤트</ColumnLink> */}
               </DropdownBox>
             </MenuBar>
           </Dropdown>

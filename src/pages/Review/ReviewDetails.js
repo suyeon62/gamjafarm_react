@@ -92,8 +92,8 @@ const ReviewDetails = () => {
 
   return (
     <>
-      <m.Comment>
-        <m.CommentBox>
+      <m.Review>
+        <m.ReviewBox>
           <m.BoxTitleContainer>
             <m.BoxTitle>
               <m.User to={`/mypage/${reviewDetail.user_id}`}>
@@ -101,54 +101,49 @@ const ReviewDetails = () => {
                 <m.UserName>{reviewDetail.user_id}</m.UserName>
               </m.User>
               <m.MovieName>{reviewDetail.name_kor}</m.MovieName>
-              <m.MovieRate>
-                <m.RateImage src={graystar} alt="별점 이미지"></m.RateImage>
-                <m.UserRate>userRate</m.UserRate>
-              </m.MovieRate>
             </m.BoxTitle>
 
             <m.RightsideContents>
-              <m.UpdateBtn onClick={openUpdatePopup}>리뷰 수정</m.UpdateBtn>
-              <m.DeleteBtn onClick={handelDelete}>리뷰 삭제</m.DeleteBtn>
               <m.PosterLink to={`/movie/${reviewDetail.movie_code}`}>
                 <m.Poster src={reviewDetail.poster} alt="poster"></m.Poster>
               </m.PosterLink>
             </m.RightsideContents>
           </m.BoxTitleContainer>
 
-          <m.UserComment>
-            {updatePopupOpen ? (
-              <ReviewUpdatePopup
-                popupOpen={updatePopupOpen}
-                // closePopup={closeUpdatePopup}
-                closePopup={closeUpdatePopup}
-                reviewDetail={reviewDetail}
-              />
-            ) : (
-              reviewDetail.review
-            )}
-          </m.UserComment>
-
-          <m.Cnt>
-            <m.LikeCnt>좋아요 {reviewDetail.total_likes_cnt}</m.LikeCnt>
-            <m.UserCommentCommentCnt>
-              댓글 {reviewDetail.total_comment_cnt}
-            </m.UserCommentCommentCnt>
-          </m.Cnt>
+          <m.BoxContents>
+            <m.UserReview>
+              {updatePopupOpen ? (
+                <ReviewUpdatePopup
+                  popupOpen={updatePopupOpen}
+                  // closePopup={closeUpdatePopup}
+                  closePopup={closeUpdatePopup}
+                  reviewDetail={reviewDetail}
+                />
+              ) : (
+                reviewDetail.review
+              )}
+            </m.UserReview>
+            <m.Btn>
+              <m.UpdateBtn onClick={openUpdatePopup}>리뷰 수정</m.UpdateBtn>
+              <m.DeleteBtn onClick={handelDelete}>리뷰 삭제</m.DeleteBtn>
+            </m.Btn>
+          </m.BoxContents>
 
           <m.ActiveArea>
             <m.Like>
               <m.LikeImg src={likeImage} alt="좋아요 이미지"></m.LikeImg>
-              <m.LikeWord>좋아요</m.LikeWord>
+              <m.LikeWord>{reviewDetail.total_likes_cnt}</m.LikeWord>
             </m.Like>
 
-            <m.UserCommentComment>
-              <m.UserCommentCommentImg
+            <m.UserReviewComment>
+              <m.UserReviewCommentImg
                 src={commentImage}
                 alt="댓글 이미지"
-              ></m.UserCommentCommentImg>
-              <m.UserCommentCommentWord>댓글</m.UserCommentCommentWord>
-            </m.UserCommentComment>
+              ></m.UserReviewCommentImg>
+              <m.UserReviewCommentWord>
+                {reviewDetail.total_comment_cnt}
+              </m.UserReviewCommentWord>
+            </m.UserReviewComment>
           </m.ActiveArea>
 
           <ReviewCommentWrite />
@@ -171,8 +166,8 @@ const ReviewDetails = () => {
           </m.NoCommentsBox>
 
           <ReviewCommentList />
-        </m.CommentBox>
-      </m.Comment>
+        </m.ReviewBox>
+      </m.Review>
     </>
   );
 };
