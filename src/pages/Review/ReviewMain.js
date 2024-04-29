@@ -43,11 +43,11 @@ const ReviewMain = () => {
 
   const handleLikeToggle = async (reviewIdx) => {
     if (liked) {
-      dispatch(reviewActions.getHitLike(user_id, reviewIdx));
+      dispatch(reviewActions.getHitLike(reviewIdx));
     } else {
-      dispatch(reviewActions.getHitLike(user_id, reviewIdx));
+      dispatch(reviewActions.getHitLike(reviewIdx));
     }
-    setLiked(!liked); // 상태를 토글
+    setLiked(!liked);
   };
 
   useEffect(() => {
@@ -130,7 +130,7 @@ const ReviewMain = () => {
                   <m.ActiveArea>
                     <m.LikeBtn onClick={() => handleLikeToggle(review.idx)}>
                       <m.LikeImg
-                        src={liked ? like : likeImage}
+                        src={review.like_btn ? like : likeImage}
                         alt="좋아요 이미지"
                       />
                     </m.LikeBtn>

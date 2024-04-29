@@ -7,7 +7,8 @@ import { useParams } from "react-router-dom";
 import ReviewCommentUpdate from "./ReviewCommentUpdate";
 
 const ReviewCommentList = () => {
-  const { idx, user_id } = useParams();
+  const { idx } = useParams();
+  let user_id = localStorage.getItem("id");
   console.log("sldkjf", user_id);
   const dispatch = useDispatch();
 

@@ -26,7 +26,8 @@ const MovieInfo = () => {
     getMovieReviewList(code);
     const fetchMoviesData = async () => {
       try {
-        const response = await axios.get(`/movie/${code}`);
+        let id = localStorage.getItem("id");
+        const response = await axios.get(`/movie/detail/${code}/${id}`);
         setMoviesData(response.data);
       } catch (error) {
         console.error("Error fetching movie data:", error);

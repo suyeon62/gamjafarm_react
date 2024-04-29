@@ -2,13 +2,16 @@ import axios from "axios";
 import { reviewReducers } from "../createSlice/review_createSlice";
 import { useState } from "react";
 
+let id = localStorage.getItem("id");
 //좋아요 순 리뷰 정렬
 function getMostlikeReviewList(currentPage) {
   return async (dispatch) => {
+    let id = localStorage.getItem("id");
     const reviewResponse = await axios
-      .get(`/review/mostlike/${currentPage}`)
+      .get(`/review/mostlike/${currentPage}/${id}`)
       .then((response) => response.data);
     // console.log("action>>", reviewResponse);
+    console.log("localid", currentPage, id);
     dispatch(reviewReducers.getMostlikeReviewList({ reviewResponse }));
   };
 }
@@ -16,10 +19,12 @@ function getMostlikeReviewList(currentPage) {
 //최신 순 리뷰 정렬
 function getNewReviewList(currentPage) {
   return async (dispatch) => {
+    let id = localStorage.getItem("id");
     const reviewResponse = await axios
-      .get(`/review/newreview/${currentPage}`)
+      .get(`/review/newreview/${currentPage}/${id}`)
       .then((response) => response.data);
     // console.log("action>>", reviewResponse);
+    console.log("localidnew", id);
     dispatch(reviewReducers.getNewReviewList({ reviewResponse }));
   };
 }
@@ -47,11 +52,11 @@ function getReviewDetail(idx) {
 }
 
 //리뷰 write
-function getReviewWrite(user_id, movie_code, formData) {
+function getReviewWrite(movie_code, formData) {
   console.log("formData:", formData);
   return async () => {
-    await axios.post(`/review/write/${user_id}/${movie_code}`, formData);
-    console.log(user_id);
+    await axios.post(`/review/write/${id}/${movie_code}`, formData);
+    console.log(id, movie_code);
   };
 }
 
@@ -86,11 +91,11 @@ function getMovieReviewList(movie_code) {
 }
 
 //좋아요
-function getHitLike(user_id, user_review_idx) {
-  console.log("hitlike>>:", user_id, user_review_idx);
+function getHitLike(user_review_idx) {
+  console.log("hitlike>>:", id, user_review_idx);
   return async () => {
-    await axios.post(`/review/hitlike/${user_id}/${user_review_idx}`);
-    console.log("get?", user_id, user_review_idx);
+    await axios.post(`/review/hitlike/${id}/${user_review_idx}`);
+    console.log("get?", id, user_review_idx);
   };
 }
 

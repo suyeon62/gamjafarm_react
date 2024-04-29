@@ -30,6 +30,7 @@ const StarSpan = styled.span`
 
 const StarRating = () => {
   const [rating, setRating] = useState(0);
+  console.log(rating / 2);
 
   const handleRatingChange = (event) => {
     setRating(event.target.value);

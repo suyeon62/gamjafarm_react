@@ -118,7 +118,12 @@ export const ActiveArea = styled.div`
   margin-bottom: 20px;
 `;
 
-export const Like = styled.div`
+export const Like = styled.button`
+  background: none;
+  border: none;
+
+  /* padding: 0; */
+
   display: flex;
   justify-content: center;
   align-items: center;

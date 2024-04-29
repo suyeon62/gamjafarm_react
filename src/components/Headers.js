@@ -136,7 +136,7 @@ const UserImage = styled.img`
 
 const BeforeLogIn = styled.div``;
 
-const LogInButton = styled.button`
+const LogInButton = styled(Link)`
   background-color: inherit;
   border: none;
   color: #a5a5aa;
@@ -147,7 +147,7 @@ const LogInButton = styled.button`
   cursor: pointer;
 `;
 
-const SignUpButton = styled.button`
+const SignUpButton = styled(Link)`
   background-color: black;
   border: solid 1px #b9b9bd;
   border-radius: 5px;
@@ -156,6 +156,7 @@ const SignUpButton = styled.button`
   text-align: center;
   font-size: 13px;
   font-weight: bold;
+  text-decoration: none;
   cursor: pointer;
 `;
 
@@ -165,12 +166,22 @@ const UserImageLink = styled(Link)``;
 const Headers = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
+  useEffect(() => {
+    const userId = localStorage.getItem("id");
+    if (userId) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const handleLogout = () => {
+    // 로컬 스토리지에서 아이디 삭제
+    localStorage.removeItem("id");
+    // 로그인 상태를 false로 설정
     setIsLoggedIn(false);
+    // 메인 페이지로 이동
+    window.location.href = "/"; // 혹은 다른 경로로 이동하셔도 됩니다.
   };
 
   const genres = [
@@ -246,13 +257,14 @@ const Headers = () => {
             </SearchContainer> */}
             {isLoggedIn ? (
               <UserImageLink onClick={handleLogout}>
+                로그아웃
                 {/* <UserImageLink to="/user-profile"> */}
                 <UserImage src={userImage} alt="유저 이미지" />
               </UserImageLink>
             ) : (
               <BeforeLogIn>
-                <LogInButton onClick={handleLogin}>로그인</LogInButton>
-                <SignUpButton>회원가입</SignUpButton>
+                <LogInButton to={`login`}>로그인</LogInButton>
+                <SignUpButton to={`signup`}>회원가입</SignUpButton>
               </BeforeLogIn>
             )}
           </UserMenu>

@@ -8,9 +8,10 @@ import { reviewActions } from "../../toolkit/actions/review_action";
 const ReviewWritePopup = (props) => {
   const [moviesData, setMoviesData] = useState([]);
 
-  const { code, user_id } = useParams();
+  const { code } = useParams();
   const { currentPage } = useParams();
-  console.log("code>>>>", code, user_id);
+  let id = localStorage.getItem("id");
+  console.log("code>>>>", code, id);
 
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -18,7 +19,7 @@ const ReviewWritePopup = (props) => {
   useEffect(() => {
     const fetchMoviesData = async () => {
       try {
-        const response = await axios.get(`/movie/${code}`);
+        const response = await axios.get(`/movie/detail/${code}`);
         setMoviesData(response.data);
       } catch (error) {
         console.error("Error fetching movie data:", error);
@@ -42,12 +43,12 @@ const ReviewWritePopup = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = { user_id: "test", review: content, movie_code: code };
+    const formData = { user_id: id, review: content, movie_code: code };
     // formData.append("user_id", localStorage.getItem("user_id"));
 
     console.log("formData", formData); //데이터 확인용
 
-    await dispatch(reviewActions.getReviewWrite(user_id, code, formData));
+    await dispatch(reviewActions.getReviewWrite(code, formData));
 
     setInputs({
       content: "",

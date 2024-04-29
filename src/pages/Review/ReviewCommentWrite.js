@@ -6,8 +6,9 @@ import { reviewActions } from "../../toolkit/actions/review_action";
 import { commentActions } from "../../toolkit/actions/comment_action";
 
 const ReviewCommentWrite = () => {
-  const { idx, user_id } = useParams();
-  console.log("idx", idx);
+  const { idx } = useParams();
+  let id = localStorage.getItem("id");
+  console.log("idx", idx, id);
 
   const dispatch = useDispatch();
 
@@ -35,20 +36,21 @@ const ReviewCommentWrite = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = {
-      user_id: user_id,
+      user_id: id,
       comment: content,
       user_review_idx: idx,
     };
     // formData.append("user_id", localStorage.getItem("user_id"));
     console.log("formData", formData); //데이터 확인용
 
-    await dispatch(commentActions.getCommentWrite(user_id, idx, formData));
+    await dispatch(commentActions.getCommentWrite(id, idx, formData));
 
     setInputs({
       content: "",
     });
 
     await dispatch(commentActions.getCommentList(idx));
+    window.location.reload();
   };
   return (
     <>

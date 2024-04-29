@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
+import like from "../../images/like.png";
 import axios from "axios";
 import commentImage from "../../images/commentImage.png";
 import graystar from "../../images/graystar.png";
@@ -52,7 +53,7 @@ const ReviewDetails = () => {
   //comment update
   const commentDetail = useSelector((state) => state.comment.commentDetail);
   console.log("cmtdetail>>", commentDetail);
-  const { user_id } = commentDetail;
+  let user_id = localStorage.getItem("id");
   console.log("user_id", user_id);
 
   //popup
@@ -88,6 +89,19 @@ const ReviewDetails = () => {
   // 댓글 팝업 닫기 함수
   const closeCommentUpdatePopup = () => {
     setCommentUpdatePopupOpen(false);
+  };
+
+  // 좋아요 상태 관리
+
+  const [liked, setLiked] = useState();
+
+  const handleLikeToggle = async (reviewIdx) => {
+    if (liked) {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    } else {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    }
+    setLiked(!liked);
   };
 
   return (
@@ -130,8 +144,11 @@ const ReviewDetails = () => {
           </m.BoxContents>
 
           <m.ActiveArea>
-            <m.Like>
-              <m.LikeImg src={likeImage} alt="좋아요 이미지"></m.LikeImg>
+            <m.Like onClick={() => handleLikeToggle(reviewDetail.idx)}>
+              <m.LikeImg
+                src={reviewDetail.like_btn ? like : likeImage}
+                alt="좋아요 이미지"
+              ></m.LikeImg>
               <m.LikeWord>{reviewDetail.total_likes_cnt}</m.LikeWord>
             </m.Like>
 
