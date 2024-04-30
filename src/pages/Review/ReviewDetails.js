@@ -24,8 +24,7 @@ const ReviewDetails = () => {
   const navigator = useNavigate();
   //   console.log("code>>>>", code);
 
-  // 좋아요 상태 관리
-
+  // 좋아요
   const [liked, setLiked] = useState();
 
   const handleLikeToggle = async (reviewIdx) => {
@@ -62,6 +61,15 @@ const ReviewDetails = () => {
     dispatch(reviewActions.getReviewDelete(idx));
     navigator(`/playground/review/1`);
   };
+
+  //comment list
+  const getCommentList = (idx) => {
+    dispatch(commentActions.getCommentList(idx));
+  };
+
+  const commentList = useSelector((state) => state.comment.commentList);
+  // console.log("detail", commentList);
+  const pageInfo = useSelector((state) => state.comment.pageInfo);
 
   //comment update
   const commentDetail = useSelector((state) => state.comment.commentDetail);
@@ -177,12 +185,23 @@ const ReviewDetails = () => {
             <ReviewCommentList />
           )} */}
 
-          <m.NoCommentsBox>
+          {/* <m.NoCommentsBox>
             <m.CommentIcon src={commentIcon} alt="댓글 아이콘"></m.CommentIcon>
             <m.CommentInfo>처음으로 댓글을 남겨보세요</m.CommentInfo>
           </m.NoCommentsBox>
 
-          <ReviewCommentList />
+          <ReviewCommentList /> */}
+          {pageInfo.totalCount === 0 ? (
+            <m.NoCommentsBox>
+              <m.CommentIcon
+                src={commentIcon}
+                alt="댓글 아이콘"
+              ></m.CommentIcon>
+              <m.CommentInfo>처음으로 댓글을 남겨보세요</m.CommentInfo>
+            </m.NoCommentsBox>
+          ) : (
+            <ReviewCommentList />
+          )}
         </m.ReviewBox>
       </m.Review>
     </>

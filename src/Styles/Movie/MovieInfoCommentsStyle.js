@@ -102,7 +102,11 @@ export const ActiveArea = styled.div`
   height: 44px;
   border-top: 1px solid #ededed;
 `;
-export const Like = styled.div`
+export const Like = styled.button`
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
   display: flex;
   align-items: center;
 `;

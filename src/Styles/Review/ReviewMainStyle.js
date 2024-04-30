@@ -175,7 +175,6 @@ export const LikeBtn = styled.button`
 
 export const LikeImg = styled.img`
   width: 24px;
-  /* background-color: ${(props) => (props.liked ? "white" : "transparent")}; */
 `;
 
 export const UserReviewCommentLink = styled(Link)``;

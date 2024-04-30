@@ -40,27 +40,44 @@ const ReviewCommentList = () => {
       <m.WrapUserReviewCommentBox>
         {commentList.map((comment) => (
           <m.UserReviewCommentBox key={comment.idx}>
-            <m.CommentUser to={`/mypage/${comment.user_id}`}>
-              <m.CommentUserImage
-                src={userImage}
-                alt="유저 이미지"
-              ></m.CommentUserImage>
-            </m.CommentUser>
+            <m.CommentInfo>
+              <m.CommentUser to={`/mypage/${comment.user_id}`}>
+                <m.CommentUserImage
+                  src={userImage}
+                  alt="유저 이미지"
+                ></m.CommentUserImage>
+              </m.CommentUser>
 
-            {editingCommentIdx === comment.idx ? (
-              <ReviewCommentUpdate
-                user_review_idx={comment.user_review_idx}
-                idx={comment.idx}
-                user_id={comment.user_id}
-                comment={comment.comment}
-                // onUpdate={handleCommentUpdate}
-              />
-            ) : (
-              <m.CommentUserContent>
-                <m.CommentUserName>{comment.user_id}</m.CommentUserName>
-                <m.CommentContent>{comment.comment}</m.CommentContent>
-              </m.CommentUserContent>
-            )}
+              {editingCommentIdx === comment.idx ? (
+                <ReviewCommentUpdate
+                  user_review_idx={comment.user_review_idx}
+                  idx={comment.idx}
+                  user_id={comment.user_id}
+                  comment={comment.comment}
+                  // onUpdate={handleCommentUpdate}
+                />
+              ) : (
+                <m.CommentUserContent>
+                  <m.CommentUserName>{comment.user_id}</m.CommentUserName>
+                  <m.CommentContent>{comment.comment}</m.CommentContent>
+                </m.CommentUserContent>
+              )}
+
+              {/* {editingCommentIdx === comment.idx ? (
+                <ReviewCommentUpdate
+                  user_review_idx={comment.user_review_idx}
+                  idx={comment.idx}
+                  user_id={comment.user_id}
+                  comment={comment.comment}
+                  // onUpdate={handleCommentUpdate}
+                />
+              ) : (
+                <m.CommentUserContent>
+                  <m.CommentUserName>{comment.user_id}</m.CommentUserName>
+                  <m.CommentContent>{comment.comment}</m.CommentContent>
+                </m.CommentUserContent>
+              )} */}
+            </m.CommentInfo>
             <m.Btn>
               <m.UpdateBtn
                 type="submit"

@@ -8,6 +8,8 @@ export const UserReviewCommentBox = styled.div`
   display: flex;
   padding: 12px 0;
   position: relative;
+  justify-content: space-between;
+  align-items: flex-start;
   /* 
   
   flex-direction: column;
@@ -26,8 +28,9 @@ export const UserReviewCommentBox = styled.div`
     transform: translateX(-50%);
   }
 `;
-
-export const UserReviewComment = styled.div``;
+export const CommentInfo = styled.div`
+  display: flex;
+`;
 
 export const CommentUser = styled.div``;
 
@@ -52,29 +55,19 @@ export const CommentContent = styled.div`
   margin: 2px 0 9px;
   color: #ededed;
 `;
-export const CommentLike = styled.div`
-  display: flex;
-  font-size: 14px;
-  font-weight: 400;
-  color: rgb(126, 126, 126);
-`;
-
-export const CommentLikeWord = styled.div`
-  font-size: 14px;
-  margin-right: 12px;
-`;
-
-export const CommentLikeIcon = styled.img`
-  width: 14px;
-  height: 14px;
-  margin-top: 2px;
-  margin-right: 5px;
-`;
-
-export const CommentLikeCnt = styled.div``;
 
 export const Btn = styled.div``;
 
-export const UpdateBtn = styled.button``;
+export const UpdateBtn = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+`;
 
-export const DeleteBtn = styled.button``;
+export const DeleteBtn = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+`;

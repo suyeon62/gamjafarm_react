@@ -125,7 +125,14 @@ const UserMenu = styled.div`
 //     border-color: #a0a0a0;
 //   }
 // `;
-
+const AfterLogIn = styled(Link)`
+  display: flex;
+  text-decoration: none;
+  color: #a5a5aa;
+  align-items: center;
+  font-size: 13px;
+`;
+const Logout = styled.div``;
 const UserImage = styled.img`
   border: 1.5 solid #ededed;
   border-radius: 50%;
@@ -160,8 +167,7 @@ const SignUpButton = styled(Link)`
   cursor: pointer;
 `;
 
-// 이미지를 클릭 가능한 링크로 감싸는 컴포넌트
-const UserImageLink = styled(Link)``;
+const UserImageLink = styled.div``;
 
 const Headers = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -256,11 +262,12 @@ const Headers = () => {
               />
             </SearchContainer> */}
             {isLoggedIn ? (
-              <UserImageLink onClick={handleLogout}>
-                로그아웃
-                {/* <UserImageLink to="/user-profile"> */}
-                <UserImage src={userImage} alt="유저 이미지" />
-              </UserImageLink>
+              <AfterLogIn onClick={handleLogout}>
+                <Logout>로그아웃</Logout>
+                <UserImageLink>
+                  <UserImage src={userImage} alt="유저 이미지" />
+                </UserImageLink>
+              </AfterLogIn>
             ) : (
               <BeforeLogIn>
                 <LogInButton to={`login`}>로그인</LogInButton>

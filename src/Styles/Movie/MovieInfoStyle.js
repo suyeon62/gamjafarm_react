@@ -330,9 +330,14 @@ export const ActiveArea = styled.div`
   height: 44px;
   border-top: 1px solid #ededed;
 `;
-export const Like = styled.div`
+export const Like = styled.button`
   display: flex;
   align-items: center;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 `;
 export const LikeImg = styled.img`
   width: 18px;

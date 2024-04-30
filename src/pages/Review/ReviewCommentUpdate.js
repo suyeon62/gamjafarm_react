@@ -62,6 +62,10 @@ const ReviewCommentUpdate = (commentIdx) => {
     // navigator(`/playground/review/detail/${commentIdx.user_review_idx}`);
     window.location.reload();
   };
+
+  const handleCancel = () => {
+    navigator(-1);
+  };
   return (
     <>
       <m.Popup>
@@ -71,6 +75,8 @@ const ReviewCommentUpdate = (commentIdx) => {
             defaultValue={commentIdx.comment}
             onChange={handleCommentValueChange}
           ></m.Textarea>
+
+          <m.CancelBtn onClick={handleCancel}>취소</m.CancelBtn>
 
           <m.UpdateBtn
             style={{ opacity: content ? 1 : 0.5 }}

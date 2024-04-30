@@ -4,6 +4,7 @@ import { StyleSheetManager } from "styled-components";
 import graystar from "../../images/graystar.png";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
+import like from "../../images/like.png";
 import commentImage from "../../images/commentImage.png";
 import reviewwrite from "../../images/reviewWrite.png";
 import wish from "../../images/wish.png";
@@ -42,6 +43,18 @@ const MovieInfo = () => {
     setAddwish(!addwish);
   };
 
+  // 좋아요
+  const [liked, setLiked] = useState();
+
+  const handleLikeToggle = async (reviewIdx) => {
+    if (liked) {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    } else {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    }
+    setLiked(!liked);
+  };
+
   useEffect(() => {
     getMovieReviewList(code);
     const fetchMoviesData = async () => {
@@ -55,7 +68,7 @@ const MovieInfo = () => {
     };
 
     fetchMoviesData();
-  }, [addwish, userRate]);
+  }, [addwish, userRate, liked]);
 
   const getMovieReviewList = (code) => {
     dispatch(reviewActions.getMovieReviewList(code));
@@ -265,9 +278,9 @@ const MovieInfo = () => {
                       </m.UserReviewContents>
 
                       <m.ActiveArea>
-                        <m.Like>
+                        <m.Like onClick={() => handleLikeToggle(review.idx)}>
                           <m.LikeImg
-                            src={likeImage}
+                            src={review.like_btn ? like : likeImage}
                             alt="좋아요 이미지"
                           ></m.LikeImg>
                           <m.LikeCnt>{review.total_likes_cnt}</m.LikeCnt>

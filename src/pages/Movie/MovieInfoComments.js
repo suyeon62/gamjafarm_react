@@ -3,6 +3,7 @@ import axios from "axios";
 import graystar from "../../images/graystar.png";
 import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
+import like from "../../images/like.png";
 import leftarrow from "../../images/leftarrow.png";
 import commentImage from "../../images/commentImage.png";
 import * as m from "../../Styles/Movie/MovieInfoCommentsStyle";
@@ -17,10 +18,21 @@ const MovieInfoComments = () => {
 
   const dispatch = useDispatch();
 
+  // 좋아요
+  const [liked, setLiked] = useState();
+
+  const handleLikeToggle = async (reviewIdx) => {
+    if (liked) {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    } else {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    }
+    setLiked(!liked);
+  };
 
   useEffect(() => {
     getMovieReviewList(code);
-  }, []);
+  }, [liked]);
 
   const getMovieReviewList = (code) => {
     dispatch(reviewActions.getMovieReviewList(code));
@@ -35,7 +47,7 @@ const MovieInfoComments = () => {
             <m.GobackButton to={`/movie/${code}`}>
               <m.GobackButtonImage
                 src={leftarrow}
-                alt='뒤로가기 버튼'
+                alt="뒤로가기 버튼"
               ></m.GobackButtonImage>
             </m.GobackButton>
             <m.UserReviewTitle>코멘트</m.UserReviewTitle>
@@ -69,14 +81,17 @@ const MovieInfoComments = () => {
                 </m.UserReviewContents>
 
                 <m.ActiveArea>
-                  <m.Like>
-                    <m.LikeImg src={likeImage} alt='좋아요 이미지'></m.LikeImg>
+                  <m.Like onClick={() => handleLikeToggle(review.idx)}>
+                    <m.LikeImg
+                      src={review.like_btn ? like : likeImage}
+                      alt="좋아요 이미지"
+                    ></m.LikeImg>
                     <m.LikeCnt>{review.total_likes_cnt}</m.LikeCnt>
                   </m.Like>
                   <m.UserCommentComment>
                     <m.UserCommentCommentImg
                       src={commentImage}
-                      alt='댓글 이미지'
+                      alt="댓글 이미지"
                     ></m.UserCommentCommentImg>
                     <m.UserCommentCommentCnt>
                       {review.total_comment_cnt}

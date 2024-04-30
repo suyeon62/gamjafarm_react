@@ -37,8 +37,7 @@ const ReviewMain = () => {
     }
   }, [selectedButton]);
 
-  // 좋아요 상태 관리
-
+  // 좋아요
   const [liked, setLiked] = useState();
 
   const handleLikeToggle = async (reviewIdx) => {
