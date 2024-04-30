@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
+import { movieActions } from "../toolkit/actions/movie_action";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const StarContainer = styled.div`
   position: relative;
@@ -28,12 +32,37 @@ const StarSpan = styled.span`
   pointer-events: none;
 `;
 
-const StarRating = () => {
-  const [rating, setRating] = useState(0);
-  console.log(rating / 2);
+const StarRating = ({ star }) => {
+  const { code } = useParams();
+  console.log("codeee", code);
+  const id = localStorage.getItem("id");
 
-  const handleRatingChange = (event) => {
-    setRating(event.target.value);
+  const dispatch = useDispatch();
+  const [rating, setRating] = useState(star);
+  let rateInput = rating / 2;
+  useEffect(() => {}, [rateInput]);
+  console.log(rateInput);
+
+  const handleRatingChange = async (e) => {
+    e.preventDefault();
+    setRating(() => e.target.value);
+
+    console.log("e.target.value", e.target.value);
+
+    // setRating((prev) => {
+    //   return { ...prev, [e.target.name]: e.target.value };
+    // });
+
+    rateInput = e.target.value / 2;
+    console.log("rating", rating);
+    console.log("rateInput", rateInput);
+
+    const formData = { user_id: id, movie_code: code, rate: e.target.value };
+
+    console.log("formData", formData);
+
+    await dispatch(movieActions.getAddMovieUserRate(formData));
+    // window.location.reload();
   };
 
   return (

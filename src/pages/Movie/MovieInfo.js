@@ -6,10 +6,12 @@ import userImage from "../../images/userImage.png";
 import likeImage from "../../images/likeImage.png";
 import commentImage from "../../images/commentImage.png";
 import reviewwrite from "../../images/reviewWrite.png";
+import wish from "../../images/wish.png";
 import addWish from "../../images/addWish.png";
 import * as m from "../../Styles/Movie/MovieInfoStyle";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { movieActions } from "../../toolkit/actions/movie_action";
 import { reviewActions } from "../../toolkit/actions/review_action";
 import ReviewWritePopup from "../Review/ReviewWritePopup";
 import StarRating from "../../Hook/StarRating";
@@ -21,6 +23,24 @@ const MovieInfo = () => {
   // console.log("code>>>>", code);
 
   const dispatch = useDispatch();
+
+  //user_rate 입력
+  const [userRate, setUserRate] = useState();
+  const handleRatingChange = (rating) => {
+    setUserRate(rating);
+    console.log("setuserrate", userRate);
+  };
+
+  //add moviewish
+  const [addwish, setAddwish] = useState();
+  const handleWishToggle = async (code) => {
+    if (addwish) {
+      dispatch(movieActions.getAddMovieWish(code));
+    } else {
+      dispatch(movieActions.getAddMovieWish(code));
+    }
+    setAddwish(!addwish);
+  };
 
   useEffect(() => {
     getMovieReviewList(code);
@@ -35,7 +55,7 @@ const MovieInfo = () => {
     };
 
     fetchMoviesData();
-  }, []);
+  }, [addwish, userRate]);
 
   const getMovieReviewList = (code) => {
     dispatch(reviewActions.getMovieReviewList(code));
@@ -110,7 +130,11 @@ const MovieInfo = () => {
                   <m.TopContents>
                     <m.WrapRate>
                       <m.WrapUserRate>
-                        <StarRating />
+                        <StarRating
+                          star={moviesData.rate}
+                          // onClick={handleRatingChange}
+                          onClick={handleRatingChange}
+                        />
                         <m.UserStarRating>평가하기</m.UserStarRating>
                       </m.WrapUserRate>
                       <m.WrapRateAvg>
@@ -121,11 +145,17 @@ const MovieInfo = () => {
 
                     <m.UserMenu>
                       <m.UserMovieWish>
-                        <m.UserMovieWishBtn>
+                        <m.UserMovieWishBtn
+                          onClick={() => handleWishToggle(moviesData.code)}
+                        >
                           <m.UserMovieWishImage
-                            src={addWish}
+                            src={moviesData.wish === "0" ? wish : addWish}
                           ></m.UserMovieWishImage>
-                          <m.AddWish>위시리스트</m.AddWish>
+                          <m.AddWish
+                            iswish={moviesData.wish === "0" ? "true" : "false"}
+                          >
+                            위시리스트
+                          </m.AddWish>
                         </m.UserMovieWishBtn>
                       </m.UserMovieWish>
                       <m.UserComment>

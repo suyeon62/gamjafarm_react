@@ -2,7 +2,8 @@ import axios from "axios";
 import { reviewReducers } from "../createSlice/review_createSlice";
 import { useState } from "react";
 
-let id = localStorage.getItem("id");
+const id = localStorage.getItem("id");
+
 //좋아요 순 리뷰 정렬
 function getMostlikeReviewList(currentPage) {
   return async (dispatch) => {
@@ -44,7 +45,7 @@ function getReviewList(currentPage) {
 function getReviewDetail(idx) {
   return async (dispatch) => {
     const reviewResponse = await axios
-      .get(`/review/view/${idx}`)
+      .get(`/review/view/${idx}/${id}`)
       .then((response) => response.data);
     // console.log("view>>", reviewResponse);
     dispatch(reviewReducers.getReviewDetail({ reviewResponse }));
@@ -83,7 +84,7 @@ function getReviewDelete(idx) {
 function getMovieReviewList(movie_code) {
   return async (dispatch) => {
     const reviewResponse = await axios
-      .get(`/review/${movie_code}`)
+      .get(`/review/${movie_code}/${id}`)
       .then((response) => response.data);
     console.log("action>>..", reviewResponse);
     dispatch(reviewReducers.getMovieReviewList({ reviewResponse }));

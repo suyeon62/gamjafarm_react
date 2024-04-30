@@ -179,6 +179,8 @@ export const UserMovieWishImage = styled.img`
 export const AddWish = styled.div`
   font-size: 12px;
   margin-top: 5px;
+  color: ${(props) =>
+    props.iswish === "true" ? "#ededed" : "rgb(255, 47, 110)"};
 `;
 
 export const UserComment = styled.div`

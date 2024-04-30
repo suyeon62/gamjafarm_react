@@ -24,10 +24,23 @@ const ReviewDetails = () => {
   const navigator = useNavigate();
   //   console.log("code>>>>", code);
 
+  // 좋아요 상태 관리
+
+  const [liked, setLiked] = useState();
+
+  const handleLikeToggle = async (reviewIdx) => {
+    if (liked) {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    } else {
+      dispatch(reviewActions.getHitLike(reviewIdx));
+    }
+    setLiked(!liked);
+  };
+
   //review detail
   useEffect(() => {
     dispatch(reviewActions.getReviewDetail(idx));
-  }, []);
+  }, [liked]);
 
   const reviewDetail = useSelector((state) => state.review.reviewDetail);
 
@@ -89,19 +102,6 @@ const ReviewDetails = () => {
   // 댓글 팝업 닫기 함수
   const closeCommentUpdatePopup = () => {
     setCommentUpdatePopupOpen(false);
-  };
-
-  // 좋아요 상태 관리
-
-  const [liked, setLiked] = useState();
-
-  const handleLikeToggle = async (reviewIdx) => {
-    if (liked) {
-      dispatch(reviewActions.getHitLike(reviewIdx));
-    } else {
-      dispatch(reviewActions.getHitLike(reviewIdx));
-    }
-    setLiked(!liked);
   };
 
   return (

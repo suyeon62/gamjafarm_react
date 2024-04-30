@@ -22,16 +22,6 @@ function getWishList(currentPage) {
   };
 }
 
-//wish 추가
-function getAddWish() {
-  return async (dispatch) => {
-    const wishResponse = await axios.post(`/wish/addlist`);
-    dispatch(wishReducers.getAddWish({ wishResponse }));
-    console.log("wish", wishResponse);
-  };
-}
-
 export const wishActions = {
   getWishList,
-  getAddWish,
 };

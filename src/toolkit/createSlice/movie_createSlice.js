@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
   genreList: [],
   pageInfo: { currentPage: 1 },
+  addMovieWish: {},
 };
 
 const movieSlice = createSlice({
@@ -13,6 +14,10 @@ const movieSlice = createSlice({
       // console.log("action>>>>", action.payload);
       state.genreList = action.payload.movieResponse.genreList;
       state.pageInfo = action.payload.movieResponse.pageInfo;
+    },
+
+    getAddMovieWish(state, action) {
+      state.addMovieWish = action.payload.movieResponse;
     },
   },
 });
