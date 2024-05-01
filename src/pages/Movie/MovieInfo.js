@@ -9,6 +9,7 @@ import commentImage from "../../images/commentImage.png";
 import reviewwrite from "../../images/reviewWrite.png";
 import wish from "../../images/wish.png";
 import addWish from "../../images/addWish.png";
+import write from "../../images/write.png";
 import * as m from "../../Styles/Movie/MovieInfoStyle";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +17,16 @@ import { movieActions } from "../../toolkit/actions/movie_action";
 import { reviewActions } from "../../toolkit/actions/review_action";
 import ReviewWritePopup from "../Review/ReviewWritePopup";
 import StarRating from "../../Hook/StarRating";
+import LoginModal from "../../components/LoginModal";
 
 const MovieInfo = () => {
   const [moviesData, setMoviesData] = useState([]);
+
+  //modal
+  const [showModal, setShowModal] = useState(false);
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
 
   const { code } = useParams();
   // console.log("code>>>>", code);
@@ -35,6 +43,11 @@ const MovieInfo = () => {
   //add moviewish
   const [addwish, setAddwish] = useState();
   const handleWishToggle = async (code) => {
+    if (!user_id) {
+      setShowModal(true);
+      return;
+    }
+
     if (addwish) {
       dispatch(movieActions.getAddMovieWish(code));
     } else {
@@ -54,13 +67,12 @@ const MovieInfo = () => {
     }
     setLiked(!liked);
   };
-
+  const user_id = localStorage.getItem("id");
   useEffect(() => {
     getMovieReviewList(code);
     const fetchMoviesData = async () => {
       try {
-        let id = localStorage.getItem("id");
-        const response = await axios.get(`/movie/detail/${code}/${id}`);
+        const response = await axios.get(`/movie/detail/${code}/${user_id}`);
         setMoviesData(response.data);
       } catch (error) {
         console.error("Error fetching movie data:", error);
@@ -80,6 +92,10 @@ const MovieInfo = () => {
 
   // 팝업 열기 함수
   const openPopup = () => {
+    if (!user_id) {
+      setShowModal(true);
+      return;
+    }
     setPopupOpen(true);
   };
 
@@ -96,6 +112,7 @@ const MovieInfo = () => {
   return (
     <StyleSheetManager shouldForwardProp={(prop) => prop !== "imageUrl"}>
       <>
+        {showModal && <LoginModal handleModalCancel={handleModalCancel} />}
         <m.Movie key={moviesData.code}>
           <m.MoviePage>
             <m.MovieInfoContainer>
@@ -239,10 +256,19 @@ const MovieInfo = () => {
                 <m.UserReviewTitleContainer>
                   <m.WrapUserReviewTitle>
                     <m.UserReviewTitle>리뷰</m.UserReviewTitle>
-                    <m.UserReviewCnt>userReviewCnt</m.UserReviewCnt>
+                    {/* <m.UserReviewCnt>userReviewCnt</m.UserReviewCnt> */}
                   </m.WrapUserReviewTitle>
-                  <m.MoreBtn to={`/movie/${code}/review`}>더보기</m.MoreBtn>
+                  {movieReviewList.length > 0 && (
+                    <m.MoreBtn to={`/movie/${code}/review`}>더보기</m.MoreBtn>
+                  )}
                 </m.UserReviewTitleContainer>
+
+                {movieReviewList.length === 0 && (
+                  <m.NoReviewBox>
+                    <m.ReviewIcon src={write} alt="댓글 아이콘"></m.ReviewIcon>
+                    <m.ReviewInfo>처음으로 리뷰를 남겨보세요</m.ReviewInfo>
+                  </m.NoReviewBox>
+                )}
 
                 <m.UserReviewContentsContainer>
                   {movieReviewList.slice(0, 8).map((review) => (
@@ -257,13 +283,13 @@ const MovieInfo = () => {
                           ></m.UserImage>
                           <m.UserName>{review.user_id}</m.UserName>
                         </m.WrapUserReviewContentsTitle>
-                        <m.MovieRate>
+                        {/* <m.MovieRate>
                           <m.RateImage
                             src={graystar}
                             alt="별점 이미지"
                           ></m.RateImage>
                           <m.UserRate>userRate</m.UserRate>
-                        </m.MovieRate>
+                        </m.MovieRate> */}
                       </m.UserReviewContentsTitleContainer>
 
                       <m.UserReviewContents>

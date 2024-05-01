@@ -9,14 +9,21 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PageNavigation from "../PageNavigation";
 import { reviewActions } from "../../toolkit/actions/review_action";
+import LoginModal from "../../components/LoginModal";
 
 const ReviewMain = () => {
   const dispatch = useDispatch();
 
-  // const currentPage = 1;
+  //modal
+  const [showModal, setShowModal] = useState(false);
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
+
+  const user_id = localStorage.getItem("id");
 
   const [selectedButton, setSelectedButton] = useState("popular");
-  const { user_id } = useParams();
+  // const { user_id } = useParams();
 
   const handleButtonClick = (buttonType) => {
     if (buttonType === "popular") {
@@ -41,6 +48,11 @@ const ReviewMain = () => {
   const [liked, setLiked] = useState();
 
   const handleLikeToggle = async (reviewIdx) => {
+    if (!user_id) {
+      setShowModal(true);
+      return;
+    }
+
     if (liked) {
       dispatch(reviewActions.getHitLike(reviewIdx));
     } else {
@@ -74,6 +86,7 @@ const ReviewMain = () => {
 
   return (
     <>
+      {showModal && <LoginModal handleModalCancel={handleModalCancel} />}
       <m.Review>
         <m.ReviewLayout>
           <m.ReviewHeader>지금 뜨는 리뷰</m.ReviewHeader>

@@ -34,6 +34,12 @@ const ReviewCommentWrite = () => {
     });
   };
   const onSubmit = async (e) => {
+    if (!id) {
+      alert("로그인을 해주세요.");
+      window.location.href = `/login`;
+      return;
+    }
+
     e.preventDefault();
     const formData = {
       user_id: id,

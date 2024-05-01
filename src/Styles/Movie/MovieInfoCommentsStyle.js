@@ -65,24 +65,24 @@ export const UserName = styled.div`
   font-weight: 400;
   color: white;
 `;
-export const MovieRate = styled.div`
-  display: flex;
-  align-items: center;
-  color: #ededed;
-  background-color: rgb(74, 74, 74);
-  border: solid 1px rgb(234, 234, 234);
-  border-radius: 13px;
-  height: 26px;
-  padding: 0 8px;
-`;
-export const RateImage = styled.img`
-  width: 16px;
-  height: 16px;
-  margin-right: 3px;
-`;
-export const UserRate = styled.div`
-  font-size: 14px;
-`;
+// export const MovieRate = styled.div`
+//   display: flex;
+//   align-items: center;
+//   color: #ededed;
+//   background-color: rgb(74, 74, 74);
+//   border: solid 1px rgb(234, 234, 234);
+//   border-radius: 13px;
+//   height: 26px;
+//   padding: 0 8px;
+// `;
+// export const RateImage = styled.img`
+//   width: 16px;
+//   height: 16px;
+//   margin-right: 3px;
+// `;
+// export const UserRate = styled.div`
+//   font-size: 14px;
+// `;
 
 export const UserReviewContents = styled.div`
   height: 100%;

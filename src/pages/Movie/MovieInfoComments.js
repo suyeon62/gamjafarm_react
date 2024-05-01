@@ -66,10 +66,10 @@ const MovieInfoComments = () => {
                     ></m.UserImage>
                     <m.UserName>{review.user_id}</m.UserName>
                   </m.WrapUserReviewContentsTitle>
-                  <m.MovieRate>
+                  {/* <m.MovieRate>
                     <m.RateImage src={graystar} alt="별점 이미지"></m.RateImage>
                     <m.UserRate>userRate</m.UserRate>
-                  </m.MovieRate>
+                  </m.MovieRate> */}
                 </m.UserReviewContentsTitleContainer>
 
                 <m.UserReviewContents>

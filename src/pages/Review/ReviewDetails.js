@@ -15,10 +15,17 @@ import { commentActions } from "../../toolkit/actions/comment_action";
 import ReviewUpdatePopup from "./ReviewUpdatePopup";
 import ReviewCommentList from "./ReviewCommentList";
 import ReviewCommentWrite from "./ReviewCommentWrite";
+import LoginModal from "../../components/LoginModal";
 
 const ReviewDetails = () => {
   const { code } = useParams();
   const { idx } = useParams();
+
+  //modal
+  const [showModal, setShowModal] = useState(false);
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
 
   const dispatch = useDispatch();
   const navigator = useNavigate();
@@ -28,6 +35,11 @@ const ReviewDetails = () => {
   const [liked, setLiked] = useState();
 
   const handleLikeToggle = async (reviewIdx) => {
+    if (!user_id) {
+      setShowModal(true);
+      return;
+    }
+
     if (liked) {
       dispatch(reviewActions.getHitLike(reviewIdx));
     } else {
@@ -74,7 +86,7 @@ const ReviewDetails = () => {
   //comment update
   const commentDetail = useSelector((state) => state.comment.commentDetail);
   console.log("cmtdetail>>", commentDetail);
-  let user_id = localStorage.getItem("id");
+  const user_id = localStorage.getItem("id");
   console.log("user_id", user_id);
 
   //popup
@@ -114,6 +126,7 @@ const ReviewDetails = () => {
 
   return (
     <>
+      {showModal && <LoginModal handleModalCancel={handleModalCancel} />}
       <m.Review>
         <m.ReviewBox>
           <m.BoxTitleContainer>
@@ -145,10 +158,12 @@ const ReviewDetails = () => {
                 reviewDetail.review
               )}
             </m.UserReview>
-            <m.Btn>
-              <m.UpdateBtn onClick={openUpdatePopup}>리뷰 수정</m.UpdateBtn>
-              <m.DeleteBtn onClick={handelDelete}>리뷰 삭제</m.DeleteBtn>
-            </m.Btn>
+            {reviewDetail.user_id === user_id && (
+              <m.Btn>
+                <m.UpdateBtn onClick={openUpdatePopup}>리뷰 수정</m.UpdateBtn>
+                <m.DeleteBtn onClick={handelDelete}>리뷰 삭제</m.DeleteBtn>
+              </m.Btn>
+            )}
           </m.BoxContents>
 
           <m.ActiveArea>
@@ -173,24 +188,6 @@ const ReviewDetails = () => {
 
           <ReviewCommentWrite />
 
-          {/* {commentList.length === 0 ? (
-            <m.NoCommentsBox>
-              <m.CommentIcon
-                src={commentIcon}
-                alt="댓글 아이콘"
-              ></m.CommentIcon>
-              <m.CommentInfo>처음으로 댓글을 남겨보세요</m.CommentInfo>
-            </m.NoCommentsBox>
-          ) : (
-            <ReviewCommentList />
-          )} */}
-
-          {/* <m.NoCommentsBox>
-            <m.CommentIcon src={commentIcon} alt="댓글 아이콘"></m.CommentIcon>
-            <m.CommentInfo>처음으로 댓글을 남겨보세요</m.CommentInfo>
-          </m.NoCommentsBox>
-
-          <ReviewCommentList /> */}
           {pageInfo.totalCount === 0 ? (
             <m.NoCommentsBox>
               <m.CommentIcon

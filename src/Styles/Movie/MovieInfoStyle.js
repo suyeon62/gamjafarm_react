@@ -245,12 +245,12 @@ export const UserReviewTitle = styled.div`
   font-weight: 700;
 `;
 
-export const UserReviewCnt = styled.div`
-  color: rgb(255, 47, 110);
-  font-size: 24px;
-  font-weight: 400;
-  margin-left: 8px;
-`;
+// export const UserReviewCnt = styled.div`
+//   color: rgb(255, 47, 110);
+//   font-size: 24px;
+//   font-weight: 400;
+//   margin-left: 8px;
+// `;
 
 export const MoreBtn = styled(Link)`
   background-color: inherit;
@@ -258,6 +258,27 @@ export const MoreBtn = styled(Link)`
   text-decoration: none;
   font-size: 15px;
 `;
+
+export const NoReviewBox = styled.div`
+  margin-top: 35px;
+  padding: 16px 0 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ReviewIcon = styled.img`
+  width: 72px;
+  height: 72px;
+`;
+
+export const ReviewInfo = styled.div`
+  color: rgb(160, 160, 160);
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 12px;
+`;
+
 export const UserReviewContentsContainer = styled.ul`
   column-gap: 8px;
   display: grid;
@@ -292,24 +313,24 @@ export const UserName = styled.div`
   font-weight: 400;
   color: white;
 `;
-export const MovieRate = styled.div`
-  display: flex;
-  align-items: center;
-  color: #ededed;
-  background-color: rgb(74, 74, 74);
-  border: solid 1px rgb(234, 234, 234);
-  border-radius: 13px;
-  height: 26px;
-  padding: 0 8px;
-`;
-export const RateImage = styled.img`
-  width: 16px;
-  height: 16px;
-  margin-right: 3px;
-`;
-export const UserRate = styled.div`
-  font-size: 14px;
-`;
+// export const MovieRate = styled.div`
+//   display: flex;
+//   align-items: center;
+//   color: #ededed;
+//   background-color: rgb(74, 74, 74);
+//   border: solid 1px rgb(234, 234, 234);
+//   border-radius: 13px;
+//   height: 26px;
+//   padding: 0 8px;
+// `;
+// export const RateImage = styled.img`
+//   width: 16px;
+//   height: 16px;
+//   margin-right: 3px;
+// `;
+// export const UserRate = styled.div`
+//   font-size: 14px;
+// `;
 
 export const UserReviewContents = styled.div`
   height: 120px;

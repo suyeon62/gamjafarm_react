@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { movieActions } from "../toolkit/actions/movie_action";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import LoginModal from "../components/LoginModal";
 
 const StarContainer = styled.div`
   position: relative;
@@ -33,9 +34,15 @@ const StarSpan = styled.span`
 `;
 
 const StarRating = ({ star }) => {
+  //modal
+  const [showModal, setShowModal] = useState(false);
+  const handleModalCancel = () => {
+    setShowModal(false);
+  };
+
   const { code } = useParams();
   console.log("codeee", code);
-  const id = localStorage.getItem("id");
+  const user_id = localStorage.getItem("id");
 
   const dispatch = useDispatch();
   const [rating, setRating] = useState(star);
@@ -44,6 +51,11 @@ const StarRating = ({ star }) => {
   console.log(rateInput);
 
   const handleRatingChange = async (e) => {
+    if (!user_id) {
+      setShowModal(true);
+      return;
+    }
+
     e.preventDefault();
     setRating(() => e.target.value);
 
@@ -57,7 +69,11 @@ const StarRating = ({ star }) => {
     console.log("rating", rating);
     console.log("rateInput", rateInput);
 
-    const formData = { user_id: id, movie_code: code, rate: e.target.value };
+    const formData = {
+      user_id: user_id,
+      movie_code: code,
+      rate: e.target.value,
+    };
 
     console.log("formData", formData);
 
@@ -66,18 +82,21 @@ const StarRating = ({ star }) => {
   };
 
   return (
-    <StarContainer>
-      ★★★★★
-      <StarSpan rating={rating}>★★★★★</StarSpan>
-      <StarInput
-        type="range"
-        value={rating}
-        onChange={handleRatingChange}
-        step="1"
-        min="0"
-        max="10"
-      />
-    </StarContainer>
+    <>
+      {showModal && <LoginModal handleModalCancel={handleModalCancel} />}
+      <StarContainer>
+        ★★★★★
+        <StarSpan rating={rating}>★★★★★</StarSpan>
+        <StarInput
+          type="range"
+          value={rating}
+          onChange={handleRatingChange}
+          step="1"
+          min="0"
+          max="10"
+        />
+      </StarContainer>
+    </>
   );
 };
 

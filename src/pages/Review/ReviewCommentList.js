@@ -8,8 +8,8 @@ import ReviewCommentUpdate from "./ReviewCommentUpdate";
 
 const ReviewCommentList = () => {
   const { idx } = useParams();
-  let user_id = localStorage.getItem("id");
-  console.log("sldkjf", user_id);
+  const id = localStorage.getItem("id");
+  console.log("sldkjf", id);
   const dispatch = useDispatch();
 
   //comment list
@@ -48,51 +48,34 @@ const ReviewCommentList = () => {
                 ></m.CommentUserImage>
               </m.CommentUser>
 
-              {editingCommentIdx === comment.idx ? (
-                <ReviewCommentUpdate
-                  user_review_idx={comment.user_review_idx}
-                  idx={comment.idx}
-                  user_id={comment.user_id}
-                  comment={comment.comment}
-                  // onUpdate={handleCommentUpdate}
-                />
-              ) : (
-                <m.CommentUserContent>
-                  <m.CommentUserName>{comment.user_id}</m.CommentUserName>
-                  <m.CommentContent>{comment.comment}</m.CommentContent>
-                </m.CommentUserContent>
-              )}
-
-              {/* {editingCommentIdx === comment.idx ? (
-                <ReviewCommentUpdate
-                  user_review_idx={comment.user_review_idx}
-                  idx={comment.idx}
-                  user_id={comment.user_id}
-                  comment={comment.comment}
-                  // onUpdate={handleCommentUpdate}
-                />
-              ) : (
-                <m.CommentUserContent>
-                  <m.CommentUserName>{comment.user_id}</m.CommentUserName>
-                  <m.CommentContent>{comment.comment}</m.CommentContent>
-                </m.CommentUserContent>
-              )} */}
+              <m.CommentContentsWrap>
+                {editingCommentIdx === comment.idx ? (
+                  <ReviewCommentUpdate comment={comment} />
+                ) : (
+                  <m.CommentUserContent>
+                    <m.CommentUserName>{comment.user_id}</m.CommentUserName>
+                    <m.CommentContent>{comment.comment}</m.CommentContent>
+                  </m.CommentUserContent>
+                )}
+              </m.CommentContentsWrap>
             </m.CommentInfo>
-            <m.Btn>
-              <m.UpdateBtn
-                type="submit"
-                value="수정"
-                onClick={() => setEditingCommentIdx(comment.idx)}
-              >
-                수정
-              </m.UpdateBtn>
-              <m.DeleteBtn
-                onClick={() => commentDelete(comment.user_id, comment.idx)}
-              >
-                {/* <m.DeleteBtn onClick={commentDelete}> */}
-                삭제
-              </m.DeleteBtn>
-            </m.Btn>
+            {comment.user_id === id && (
+              <m.Btn>
+                <m.UpdateBtn
+                  type="submit"
+                  value="수정"
+                  onClick={() => setEditingCommentIdx(comment.idx)}
+                >
+                  수정
+                </m.UpdateBtn>
+                <m.DeleteBtn
+                  onClick={() => commentDelete(comment.user_id, comment.idx)}
+                >
+                  {/* <m.DeleteBtn onClick={commentDelete}> */}
+                  삭제
+                </m.DeleteBtn>
+              </m.Btn>
+            )}
           </m.UserReviewCommentBox>
         ))}
       </m.WrapUserReviewCommentBox>

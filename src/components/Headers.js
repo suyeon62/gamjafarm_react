@@ -125,14 +125,15 @@ const UserMenu = styled.div`
 //     border-color: #a0a0a0;
 //   }
 // `;
-const AfterLogIn = styled(Link)`
+const AfterLogIn = styled.div`
   display: flex;
-  text-decoration: none;
-  color: #a5a5aa;
   align-items: center;
   font-size: 13px;
 `;
-const Logout = styled.div``;
+const Logout = styled(Link)`
+  text-decoration: none;
+  color: #a5a5aa;
+`;
 const UserImage = styled.img`
   border: 1.5 solid #ededed;
   border-radius: 50%;
@@ -167,13 +168,13 @@ const SignUpButton = styled(Link)`
   cursor: pointer;
 `;
 
-const UserImageLink = styled.div``;
+const UserImageLink = styled(Link)``;
 
 const Headers = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const userId = localStorage.getItem("id");
 
   useEffect(() => {
-    const userId = localStorage.getItem("id");
     if (userId) {
       setIsLoggedIn(true);
     } else {
@@ -262,9 +263,9 @@ const Headers = () => {
               />
             </SearchContainer> */}
             {isLoggedIn ? (
-              <AfterLogIn onClick={handleLogout}>
-                <Logout>로그아웃</Logout>
-                <UserImageLink>
+              <AfterLogIn>
+                <Logout onClick={handleLogout}>로그아웃</Logout>
+                <UserImageLink to={`mypage/${userId}`}>
                   <UserImage src={userImage} alt="유저 이미지" />
                 </UserImageLink>
               </AfterLogIn>

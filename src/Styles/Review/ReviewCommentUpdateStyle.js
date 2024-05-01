@@ -12,8 +12,8 @@ export const CommentUpdate = styled.div`
 
 export const Textarea = styled.textarea`
   width: 100%;
-  /* min-height: 360px; */
-  padding: 2px;
+
+  padding: 2px 10px;
   margin: 1px 0;
   border: 1px solid none;
   border-radius: 5px;
@@ -28,19 +28,25 @@ export const Textarea = styled.textarea`
     color: #999;
   }
 `;
-
-export const CancelBtn = styled.button``;
-export const UpdateBtn = styled.button`
-  /* width: 35%; */
-  width: 40%;
-  background-color: rgb(255, 47, 110);
-  height: 38px;
-  color: rgb(255, 255, 255);
-  font-size: 15px;
+export const Btn = styled.div``;
+export const CancelBtn = styled.button`
+  background-color: black;
+  color: white;
+  font-size: 13px;
   font-weight: 400;
-  padding: 0px 40px;
+  padding: 3px 10px;
+  border-radius: 7px;
+  border: 0px none rgb(255, 255, 255);
+  margin-bottom: 5px;
+`;
+export const UpdateBtn = styled.button`
+  background-color: rgb(255, 47, 110);
+  /* height: 38px; */
+  color: rgb(255, 255, 255);
+  font-size: 13px;
+  font-weight: 400;
+  padding: 3px 10px;
   border-radius: 7px;
   border: 0px none rgb(255, 255, 255);
   opacity: 0.5;
-  margin-left: auto;
 `;

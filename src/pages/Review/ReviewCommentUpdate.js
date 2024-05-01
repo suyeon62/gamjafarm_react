@@ -18,6 +18,7 @@ const ReviewCommentUpdate = (commentIdx) => {
   console.log("cmtdetail>>", commentDetail);
   const { idx, user_id } = commentDetail;
   console.log("user_id", user_id);
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
     setInputs((prev) => {
@@ -34,20 +35,20 @@ const ReviewCommentUpdate = (commentIdx) => {
 
   const handleCommentUpdate = async (e) => {
     e.preventDefault();
+
     const formData = {
-      idx: commentIdx.idx,
-      user_id: commentIdx.user_id,
+      idx: commentIdx.comment.idx,
+      user_id: commentIdx.comment.user_id,
       comment: content,
-      user_review_idx: commentIdx.user_review_idx,
+      user_review_idx: commentIdx.comment.user_review_idx,
     };
-    // formData.append("user_id", localStorage.getItem("user_id"));
 
     console.log("content", formData); //데이터 확인용
 
     await dispatch(
       commentActions.getCommentUpdate(
-        commentIdx.user_id,
-        commentIdx.idx,
+        commentIdx.comment.user_id,
+        commentIdx.comment.idx,
         formData
       )
     );
@@ -57,14 +58,16 @@ const ReviewCommentUpdate = (commentIdx) => {
     });
 
     // navigator(`/playground/review/detail/${reviewDetail.idx}`);
-    await dispatch(commentActions.getCommentDetail(commentIdx.idx));
+    await dispatch(commentActions.getCommentDetail(commentIdx.comment.idx));
     // await dispatch(commentActions.getCommentList(commentIdx.idx));
     // navigator(`/playground/review/detail/${commentIdx.user_review_idx}`);
     window.location.reload();
   };
 
   const handleCancel = () => {
-    navigator(-1);
+    // navigator(`/playground/review/detail/${idx}`);
+    // window.history.go(-1);
+    window.location.reload();
   };
   return (
     <>
@@ -72,20 +75,22 @@ const ReviewCommentUpdate = (commentIdx) => {
         <m.CommentUpdate>
           <m.Textarea
             name="content"
-            defaultValue={commentIdx.comment}
+            defaultValue={commentIdx.comment.comment}
             onChange={handleCommentValueChange}
           ></m.Textarea>
 
-          <m.CancelBtn onClick={handleCancel}>취소</m.CancelBtn>
+          <m.Btn>
+            <m.CancelBtn onClick={handleCancel}>취소</m.CancelBtn>
 
-          <m.UpdateBtn
-            style={{ opacity: content ? 1 : 0.5 }}
-            type="submit"
-            value="수정"
-            onClick={handleCommentUpdate}
-          >
-            수정
-          </m.UpdateBtn>
+            <m.UpdateBtn
+              style={{ opacity: content ? 1 : 0.5 }}
+              type="submit"
+              value="수정"
+              onClick={handleCommentUpdate}
+            >
+              수정
+            </m.UpdateBtn>
+          </m.Btn>
         </m.CommentUpdate>
       </m.Popup>
     </>

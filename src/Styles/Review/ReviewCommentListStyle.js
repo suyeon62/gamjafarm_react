@@ -41,6 +41,9 @@ export const CommentUserImage = styled.img`
   width: 32px;
   height: 32px;
 `;
+export const CommentContentsWrap = styled.div`
+  width: 1200px;
+`;
 export const CommentUserContent = styled.div`
   margin-left: 8px;
 `;
